@@ -1,5 +1,6 @@
+import { APP_VERSION, APP_RELEASE_NAME } from '../../version';
 import React from 'react';
-import { Menu, Sun, Moon, Calendar, User, Shield, Bell } from 'lucide-react';
+import { Menu, Sparkles, Sun, Moon, Calendar, User, Shield, Bell } from 'lucide-react';
 import { useApp } from '../../contexts/AppContext';
 
 interface NavbarProps {
@@ -63,6 +64,17 @@ export const Navbar: React.FC<NavbarProps> = ({ onToggleMobile }) => {
 
         {/* Right Controls */}
         <div className="flex items-center space-x-3 rtl:space-x-reverse">
+          {/* Version Pill */}
+          <div className="hidden sm:flex items-center">
+            <span
+              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl text-xs font-bold bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 shadow-sm cursor-default"
+              title={`កំណែកម្មវិធី៖ ${APP_VERSION} (${APP_RELEASE_NAME})`}
+            >
+              <Sparkles className="w-3 h-3 text-emerald-500" />
+              {APP_VERSION}
+            </span>
+          </div>
+
           {/* Academic Year Selector */}
           <div className="flex items-center bg-slate-100 dark:bg-slate-800/80 rounded-xl px-2.5 py-1.5 border border-slate-200 dark:border-slate-700">
             <Calendar className="w-4 h-4 text-primary-600 dark:text-primary-400 mr-2 flex-shrink-0" />

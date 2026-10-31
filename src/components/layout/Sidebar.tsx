@@ -1,3 +1,4 @@
+import { APP_VERSION } from '../../version';
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import {
@@ -35,7 +36,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onCloseMobile }) => {
     { to: '/class-curriculum', label: 'កម្មវិធីបង្រៀនតាមថ្នាក់', icon: BookCopy, badge: 'ស្វ័យប្រវត្តិ' },
     { to: '/curriculum', label: 'កម្មវិធីសិក្សាលម្អិត (គណិតទី៨)', icon: BookMarked, badge: '៣៨ សប្តាហ៍' },
     { to: '/lesson-plans', label: 'កិច្ចតែងការបង្រៀន ៥ ជំហាន', icon: FileText, badge: 'MoEYS' },
-    { to: '/timetable', label: 'កាលវិភាគបង្រៀន (៨ក-៨ឃ)', icon: CalendarDays, badge: '២០ ម៉ោង' },
+    { to: '/timetable', label: 'កាលវិភាគបង្រៀន (៨ក-៨ឃ)', icon: CalendarDays, badge: '១៦ ម៉ោង' },
     { to: '/calendar', label: 'ប្រតិទិនសាលា និងបុណ្យជាតិ', icon: CalendarCheck, badge: null },
     { to: '/attendance', label: 'អវត្តមានសិស្ស', icon: UserCheck, badge: null },
     { to: '/makeup-lessons', label: 'ម៉ោងបង្រៀនសង', icon: RotateCcw, badge: null },

@@ -1,3 +1,4 @@
+import { APP_VERSION, APP_BUILD_DATE, APP_RELEASE_NAME } from '../version';
 import React, { useState, useEffect } from 'react';
 import { storageService } from '../services/storageService';
 import { useApp } from '../contexts/AppContext';
@@ -5,7 +6,7 @@ import { initFirebase } from '../services/firebase';
 import { SchoolSettings, TeachingPeriodConfig, AuditLog } from '../types';
 import { 
   Settings, Building2, Clock, Database, ShieldCheck, 
-  RotateCcw, Save, CheckCircle
+  RotateCcw, Save, CheckCircle, Info, Tag, GitBranch
 } from 'lucide-react';
 
 export const SettingsPage: React.FC = () => {
