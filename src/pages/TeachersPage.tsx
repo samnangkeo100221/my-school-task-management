@@ -200,21 +200,14 @@ export const TeachersPage: React.FC = () => {
         <div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center">
             <GraduationCap className="w-5 h-5 mr-2 text-primary-600" />
-            គ្រប់គ្រងគ្រូបង្រៀន (Teachers Management)
+            ព័ត៌មាន និងប្រវត្តិរូបគ្រូបង្រៀន (លោកគ្រូ កែវ សំណាង)
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            ព័ត៌មានគ្រូបង្រៀន បន្ទុកម៉ោងបង្រៀន មុខវិជ្ជា និងថ្នាក់ទទួលបន្ទុក
+            ប្រព័ន្ធគ្រប់គ្រងផ្ទាល់ខ្លួនសម្រាប់ លោកគ្រូ កែវ សំណាង • ឯកទេសគណិតវិទ្យា ថ្នាក់ទី ៨ (វិទ្យាល័យ ហ៊ុន សែន បាត់ដឹង)
           </p>
         </div>
 
         <div className="flex items-center space-x-2.5 rtl:space-x-reverse">
-          <button
-            onClick={() => setImportModalOpen(true)}
-            className="px-3 py-2 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors flex items-center"
-          >
-            <Upload className="w-4 h-4 mr-1.5" />
-            នាំចូល Excel
-          </button>
           <button
             onClick={handleExportExcel}
             className="px-3 py-2 text-xs font-semibold rounded-xl bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 transition-colors flex items-center"
@@ -222,13 +215,15 @@ export const TeachersPage: React.FC = () => {
             <Download className="w-4 h-4 mr-1.5" />
             ទាញយក Excel
           </button>
-          <button
-            onClick={handleOpenAdd}
-            className="px-4 py-2 text-xs font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-md shadow-primary-500/20 transition-all flex items-center"
-          >
-            <Plus className="w-4 h-4 mr-1.5" />
-            បន្ថែមគ្រូថ្មី
-          </button>
+          {teachers.length > 0 && (
+            <button
+              onClick={() => handleOpenEdit(teachers[0])}
+              className="px-4 py-2 text-xs font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-md shadow-primary-500/20 transition-all flex items-center"
+            >
+              <Edit2 className="w-4 h-4 mr-1.5" />
+              កែប្រែប្រវត្តិរូប
+            </button>
+          )}
         </div>
       </div>
 

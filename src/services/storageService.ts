@@ -75,9 +75,13 @@ class StorageService {
   }
 
   // Initial Seed
+  private static DATA_VERSION = 'v4_keo_samnang_solo_math_2025_2026';
+
   public initStorage(): void {
-    if (!localStorage.getItem(STORAGE_KEYS.SETTINGS)) {
+    const currentVer = localStorage.getItem('msts_data_version');
+    if (!localStorage.getItem(STORAGE_KEYS.SETTINGS) || currentVer !== StorageService.DATA_VERSION) {
       this.resetToInitialData();
+      localStorage.setItem('msts_data_version', StorageService.DATA_VERSION);
     }
   }
 
@@ -98,15 +102,32 @@ class StorageService {
     this.setLocal(STORAGE_KEYS.AUDIT_LOGS, [
       {
         logId: 'LOG-INIT',
-        userId: 'admin@school.edu.kh',
-        userEmail: 'admin@school.edu.kh',
+        userId: 'samnang.keo@school.edu.kh',
+        userEmail: 'samnang.keo@school.edu.kh',
         action: 'SYSTEM_INITIALIZATION',
         collection: 'system',
         recordId: 'INIT',
-        details: 'Initial system seed with Grade 8 Mathematics Curriculum and Hun Sen Batdoeng High School timetable',
+        details: 'Initial system seed with Grade 8 Mathematics Curriculum and Hun Sen Batdoeng High School timetable for Keo Samnang',
         timestamp: new Date().toISOString()
       }
     ]);
+  }
+
+  public async updateAcademicOpeningDate(newStartDate: string): Promise<void> {
+    const years = await this.getAcademicYears();
+    const settings = await this.getSettings();
+    const activeYear = years.find(y => y.academicYearId === settings.academicYearActiveId) || years[0];
+    if (activeYear) {
+      activeYear.startDate = newStartDate;
+      await this.saveAcademicYear(activeYear);
+    }
+    const events = await this.getCalendarEvents(activeYear?.academicYearId);
+    const openingEv = events.find(e => e.eventType === 'ACADEMIC_OPENING');
+    if (openingEv) {
+      openingEv.startDate = newStartDate;
+      openingEv.endDate = newStartDate;
+      await this.saveCalendarEvent(openingEv);
+    }
   }
 
   // --- Settings ---

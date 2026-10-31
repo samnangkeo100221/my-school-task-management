@@ -10,37 +10,13 @@ const CURRENT_USER_KEY = 'msts_current_user';
 
 export const DEFAULT_USERS: UserProfile[] = [
   {
-    uid: 'USR-ADMIN-01',
-    email: 'admin@school.edu.kh',
-    displayName: 'លោកនាយក គង់ វឌ្ឍនា (Admin)',
-    role: 'ADMIN',
-    avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
-    phone: '012 889 456'
-  },
-  {
-    uid: 'USR-DIR-02',
-    email: 'director@school.edu.kh',
-    displayName: 'នាយករង ម៉ៅ សុផល (Director)',
-    role: 'SCHOOL_DIRECTOR',
-    avatarUrl: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
-    phone: '017 334 455'
-  },
-  {
-    uid: 'USR-TCH-01',
+    uid: 'USR-KS-01',
     email: 'samnang.keo@school.edu.kh',
-    displayName: 'លោកគ្រូ កែវ សំណាង (Teacher)',
-    role: 'TEACHER',
+    displayName: 'លោកគ្រូ កែវ សំណាង (គណិតវិទ្យា)',
+    role: 'ADMIN',
     teacherId: 'T-001',
     avatarUrl: 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150',
     phone: '012 889 456'
-  },
-  {
-    uid: 'USR-ATT-01',
-    email: 'attendance@school.edu.kh',
-    displayName: 'បុគ្គលិកស្រង់វត្តមាន (Staff)',
-    role: 'ATTENDANCE_STAFF',
-    avatarUrl: 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
-    phone: '097 555 123'
   }
 ];
 
@@ -51,12 +27,18 @@ class AuthService {
     const saved = localStorage.getItem(CURRENT_USER_KEY);
     if (saved) {
       try {
-        this.currentUser = JSON.parse(saved);
+        const parsed = JSON.parse(saved);
+        if (parsed.teacherId === 'T-001' || parsed.email === 'samnang.keo@school.edu.kh') {
+          this.currentUser = parsed;
+        } else {
+          this.currentUser = DEFAULT_USERS[0];
+          localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(this.currentUser));
+        }
       } catch {
         this.currentUser = DEFAULT_USERS[0];
       }
     } else {
-      this.currentUser = DEFAULT_USERS[0]; // Default to Admin for complete preview
+      this.currentUser = DEFAULT_USERS[0];
       localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(this.currentUser));
     }
   }

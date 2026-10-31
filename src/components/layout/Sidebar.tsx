@@ -28,23 +28,23 @@ interface SidebarProps {
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onCloseMobile }) => {
-  const { currentUser, switchUserRole, schoolSettings } = useApp();
+  const { schoolSettings } = useApp();
 
   const navItems = [
     { to: '/', label: 'ផ្ទាំងគ្រប់គ្រង', icon: LayoutDashboard, badge: null },
-    { to: '/academic-years', label: 'ឆ្នាំសិក្សា', icon: CalendarRange, badge: null },
-    { to: '/teachers', label: 'គ្រប់គ្រងគ្រូ', icon: GraduationCap, badge: null },
-    { to: '/students', label: 'គ្រប់គ្រងសិស្ស', icon: Users, badge: null },
-    { to: '/classes', label: 'គ្រប់គ្រងថ្នាក់', icon: School, badge: null },
-    { to: '/subjects', label: 'មុខវិជ្ជា', icon: BookOpen, badge: null },
-    { to: '/curriculum', label: 'កម្មវិធីសិក្សាប្រចាំឆ្នាំ', icon: BookMarked, badge: 'កែវ សំណាង' },
-    { to: '/timetable', label: 'កាលវិភាគគ្រូ', icon: CalendarDays, badge: null },
-    { to: '/calendar', label: 'ប្រតិទិនសាលា', icon: CalendarCheck, badge: null },
-    { to: '/class-curriculum', label: 'កម្មវិធីសិក្សាតាមថ្នាក់', icon: BookCopy, badge: 'Core' },
-    { to: '/lesson-plans', label: 'កិច្ចតែងការបង្រៀន', icon: FileText, badge: '៥ ជំហាន' },
+    { to: '/class-curriculum', label: 'កម្មវិធីបង្រៀនតាមថ្នាក់', icon: BookCopy, badge: 'ស្វ័យប្រវត្តិ' },
+    { to: '/curriculum', label: 'កម្មវិធីសិក្សាលម្អិត (គណិតទី៨)', icon: BookMarked, badge: '៣៨ សប្តាហ៍' },
+    { to: '/lesson-plans', label: 'កិច្ចតែងការបង្រៀន ៥ ជំហាន', icon: FileText, badge: 'MoEYS' },
+    { to: '/timetable', label: 'កាលវិភាគបង្រៀន (៨ក-៨ឃ)', icon: CalendarDays, badge: '២០ ម៉ោង' },
+    { to: '/calendar', label: 'ប្រតិទិនសាលា និងបុណ្យជាតិ', icon: CalendarCheck, badge: null },
     { to: '/attendance', label: 'អវត្តមានសិស្ស', icon: UserCheck, badge: null },
     { to: '/makeup-lessons', label: 'ម៉ោងបង្រៀនសង', icon: RotateCcw, badge: null },
-    { to: '/reports', label: 'របាយការណ៍', icon: BarChart3, badge: null },
+    { to: '/students', label: 'បញ្ជីសិស្សតាមថ្នាក់', icon: Users, badge: null },
+    { to: '/classes', label: 'ថ្នាក់រៀន (៨ក, ៨ខ, ៨គ, ៨ឃ)', icon: School, badge: null },
+    { to: '/subjects', label: 'មុខវិជ្ជាគណិតវិទ្យា', icon: BookOpen, badge: null },
+    { to: '/teachers', label: 'ប្រវត្តិរូបគ្រូ (កែវ សំណាង)', icon: GraduationCap, badge: null },
+    { to: '/academic-years', label: 'ឆ្នាំសិក្សា', icon: CalendarRange, badge: null },
+    { to: '/reports', label: 'របាយការណ៍បង្រៀន', icon: BarChart3, badge: null },
     { to: '/settings', label: 'ការកំណត់ប្រព័ន្ធ', icon: Settings, badge: null },
   ];
 
@@ -74,34 +74,33 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onCloseMobile }) => {
               <h1 className="font-bold text-base tracking-wide text-slate-900 dark:text-white leading-tight">
                 MY SCHOOL TASK
               </h1>
-              <p className="text-xs text-primary-600 dark:text-primary-400 font-medium">
+              <p className="text-xs text-primary-600 dark:text-primary-400 font-medium truncate max-w-[170px]">
                 {schoolSettings?.schoolNameKm || 'វិទ្យាល័យ ហ៊ុន សែន បាត់ដឹង'}
               </p>
             </div>
           </div>
         </div>
 
-        {/* User Role Quick Switcher Badge */}
-        <div className="px-4 py-3 bg-slate-50 dark:bg-slate-900/60 border-b border-slate-200 dark:border-slate-800">
-          <div className="flex items-center justify-between mb-1.5">
-            <span className="text-[11px] font-semibold text-slate-500 uppercase tracking-wider">
-              តួនាទីអ្នកប្រើប្រាស់ (Role)
-            </span>
-            <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-bold bg-primary-100 text-primary-800 dark:bg-primary-900/50 dark:text-primary-300">
-              {currentUser.role}
-            </span>
+        {/* Solo Teacher Profile Badge */}
+        <div className="px-4 py-3 bg-gradient-to-r from-primary-50/60 to-indigo-50/60 dark:from-slate-900/80 dark:to-slate-900/60 border-b border-slate-200 dark:border-slate-800">
+          <div className="flex items-center space-x-3">
+            <div className="w-9 h-9 rounded-full bg-primary-600 text-white font-bold flex items-center justify-center text-sm shadow-sm ring-2 ring-primary-200 dark:ring-primary-800">
+              ស
+            </div>
+            <div className="min-w-0 flex-1">
+              <p className="text-xs font-bold text-slate-800 dark:text-slate-100 truncate">
+                លោកគ្រូ កែវ សំណាង
+              </p>
+              <div className="flex items-center gap-1.5 mt-0.5">
+                <span className="inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-semibold bg-primary-100 text-primary-700 dark:bg-primary-900/40 dark:text-primary-300">
+                  គណិតវិទ្យា ថ្នាក់ទី៨
+                </span>
+                <span className="inline-flex items-center px-1.5 py-0.2 rounded text-[10px] font-bold bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300">
+                  គ្រប់គ្រងពេញសិទ្ធិ
+                </span>
+              </div>
+            </div>
           </div>
-
-          <select
-            value={currentUser.role}
-            onChange={(e) => switchUserRole(e.target.value as any)}
-            className="w-full text-xs py-1.5 px-2.5 rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none focus:ring-2 focus:ring-primary-500 cursor-pointer"
-          >
-            <option value="ADMIN">ADMIN (ពេញសិទ្ធិទាំងអស់)</option>
-            <option value="SCHOOL_DIRECTOR">SCHOOL_DIRECTOR (នាយកសាលា)</option>
-            <option value="TEACHER">TEACHER (គ្រូបង្រៀន កែវ សំណាង)</option>
-            <option value="ATTENDANCE_STAFF">ATTENDANCE_STAFF (បុគ្គលិកវត្តមាន)</option>
-          </select>
         </div>
 
         {/* Navigation List */}

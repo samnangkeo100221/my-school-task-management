@@ -68,12 +68,19 @@ export class SchedulerEngine {
   public async generateAnnualSchedule(
     academicYearId: string,
     targetClassId?: string,
-    targetSubjectId?: string
+    targetSubjectId?: string,
+    newStartDate?: string,
+    forceResetAll: boolean = false
   ): Promise<GenerationResult> {
     const years = await storageService.getAcademicYears();
     const activeYear = years.find(y => y.academicYearId === academicYearId);
     if (!activeYear) {
       throw new Error('រកមិនឃើញឆ្នាំសិក្សាដែលបានជ្រើសរើស!');
+    }
+
+    if (newStartDate) {
+      await storageService.updateAcademicOpeningDate(newStartDate);
+      activeYear.startDate = newStartDate;
     }
 
     const settings = await storageService.getSettings();
@@ -88,24 +95,26 @@ export class SchedulerEngine {
     const preservedIds = new Set<string>();
     const preservedSessions: ScheduledLesson[] = [];
 
-    for (const s of existingScheduled) {
-      if (targetClassId && s.classId !== targetClassId) {
-        preservedSessions.push(s);
-        preservedIds.add(s.scheduledLessonId);
-        continue;
-      }
-      if (targetSubjectId && s.subjectId !== targetSubjectId) {
-        preservedSessions.push(s);
-        preservedIds.add(s.scheduledLessonId);
-        continue;
-      }
+    if (!forceResetAll) {
+      for (const s of existingScheduled) {
+        if (targetClassId && s.classId !== targetClassId) {
+          preservedSessions.push(s);
+          preservedIds.add(s.scheduledLessonId);
+          continue;
+        }
+        if (targetSubjectId && s.subjectId !== targetSubjectId) {
+          preservedSessions.push(s);
+          preservedIds.add(s.scheduledLessonId);
+          continue;
+        }
 
-      const isCompleted = s.teachingStatus === 'COMPLETED' || s.teachingStatus === 'MISSED' || s.isMakeUp;
-      const hasPlan = existingLessonPlans.some(p => p.scheduledLessonId === s.scheduledLessonId && p.status !== 'NOT_PREPARED');
+        const isCompleted = s.teachingStatus === 'COMPLETED' || s.teachingStatus === 'MISSED' || s.isMakeUp;
+        const hasPlan = existingLessonPlans.some(p => p.scheduledLessonId === s.scheduledLessonId && p.status !== 'NOT_PREPARED');
 
-      if (isCompleted || hasPlan) {
-        preservedSessions.push(s);
-        preservedIds.add(s.scheduledLessonId);
+        if (isCompleted || hasPlan) {
+          preservedSessions.push(s);
+          preservedIds.add(s.scheduledLessonId);
+        }
       }
     }
 
@@ -260,17 +269,17 @@ export class SchedulerEngine {
                 learningObjectivesKnowledge: matchedCurr.learningObjectives,
                 learningObjectivesSkills: 'សិស្សចេះអនុវត្តប្រមាណវិធី និងលំហាត់ជាក់ស្តែងបានត្រឹមត្រូវ។',
                 learningObjectivesAttitude: 'មានស្មារតីសហការ និងយកចិត្តទុកដាក់ខ្ពស់។',
-                teachingMaterials: `សៀវភៅពុម្ពសិស្សទំព័រ ${matchedCurr.studentBookPage || '១-១០'}, បន្ទាត់, ក្តារខៀន, ដីសពណ៌`,
-                teachingMethods: 'វិធីសាស្ត្របង្រៀនតាមបែបសិស្សមជ្ឈមណ្ឌល (ការពិភាក្សាជាក្រុម និងឧទាហរណ៍ជាក់ស្តែង)',
+                teachingMaterials: `សៀវភៅសិក្សាគោលគណិតវិទ្យាថ្នាក់ទី ៨ ទំព័រ ${matchedCurr.studentBookPage || '១-១០'}, បន្ទាត់, ដែកឈាន, ក្តារខៀន, ម៉ាស៊ីនគិតលេខ`,
+                teachingMethods: 'វិធីសាស្ត្រសិស្សមជ្ឈមណ្ឌល (ការពិភាក្សាជាដៃគូ ការដោះស្រាយបញ្ហា និងការអនុវត្តជាក់ស្តែង)',
                 steps: [
-                  { stepNumber: 1, stepNameKm: 'ជំហានទី ១', stepSubNameKm: 'រដ្ឋបាលថ្នាក់ (Class Admin)', teacherActivities: 'ពិនិត្យអវត្តមាន អនាម័យ និងវិន័យសិស្ស។', studentActivities: 'ប្រធានថ្នាក់រាយការណ៍ចំនួនសិស្ស។', content: 'ពិនិត្យវត្តមាន', durationMinutes: 3 },
-                  { stepNumber: 2, stepNameKm: 'ជំហានទី ២', stepSubNameKm: 'រំលឹកមេរៀនចាស់ (Review)', teacherActivities: 'សួរសំណួរមេរៀនចាស់ដែលបានរៀន។', studentActivities: 'សិស្សឆ្លើយសំណួរគ្រូ។', content: 'រំលឹកទ្រឹស្តីចាស់', durationMinutes: 5 },
-                  { stepNumber: 3, stepNameKm: 'ជំហានទី ៣', stepSubNameKm: 'មេរៀនថ្មី (New Lesson)', teacherActivities: `ពន្យល់ខ្លឹមសារ៖ ${matchedCurr.topicTitle}`, studentActivities: 'សិស្សស្តាប់ ពិភាក្សា និងកត់ត្រា។', content: matchedCurr.learningObjectives, durationMinutes: 25 },
-                  { stepNumber: 4, stepNameKm: 'ជំហានទី ៤', stepSubNameKm: 'ពង្រឹងពុទ្ធិ (Reinforcement)', teacherActivities: 'ដាក់លំហាត់គំរូ និងហៅសិស្សឡើងធ្វើ។', studentActivities: 'សិស្សដោះស្រាយលំហាត់។', content: 'លំហាត់អនុវត្តន៍', durationMinutes: 12 },
-                  { stepNumber: 5, stepNameKm: 'ជំហានទី ៥', stepSubNameKm: 'បណ្តាំផ្ញើ (Homework)', teacherActivities: 'ដាក់កិច្ចការផ្ទះ និងណែនាំមេរៀនបន្ត។', studentActivities: 'សិស្សកត់ត្រាកិច្ចការផ្ទះ។', content: 'កិច្ចការផ្ទះ', durationMinutes: 5 },
+                  { stepNumber: 1, stepNameKm: 'ជំហានទី ១', stepSubNameKm: 'រដ្ឋបាលថ្នាក់ (Class Administration)', teacherActivities: 'ពិនិត្យវត្តមាន អនាម័យ សណ្តាប់ធ្នាប់ ឯកសណ្ឋាន និងរៀបចំឥរិយាបថសិស្សមុនចូលរៀន។', studentActivities: 'ប្រធានថ្នាក់ក្រោកឈររាយការណ៍អំពីវត្តមាន និងអវត្តមានសិស្ស។', content: 'ពិនិត្យវត្តមាន និងវិន័យទូទៅក្នុងថ្នាក់', durationMinutes: 3 },
+                  { stepNumber: 2, stepNameKm: 'ជំហានទី ២', stepSubNameKm: 'រំលឹកមេរៀនចាស់ (Review Previous Lesson)', teacherActivities: 'សួរសំណួររំលឹកទ្រឹស្តី ឬរូបមន្តគណិតវិទ្យាពីម៉ោងមុន និងត្រួតពិនិត្យកិច្ចការផ្ទះ។', studentActivities: 'សិស្សឆ្លើយសំណួរគ្រូ និងលើកសៀវភៅកិច្ចការផ្ទះបង្ហាញ។', content: 'រំលឹកចំណេះដឹងមូលដ្ឋានពីម៉ោងមុន', durationMinutes: 5 },
+                  { stepNumber: 3, stepNameKm: 'ជំហានទី ៣', stepSubNameKm: 'មេរៀនថ្មី (New Lesson Content)', teacherActivities: `ពន្យល់ខ្លឹមសារ៖ ${matchedCurr.topicTitle} តាមសៀវភៅពុម្ពទំព័រ ${matchedCurr.studentBookPage} និងលើកឧទាហរណ៍គំរូលើក្តារខៀន។`, studentActivities: 'សិស្សយកចិត្តទុកដាក់ស្តាប់ ចូលរួមឆ្លើយសំណួរ កត់ត្រាឧទាហរណ៍ និងរូបមន្តចូលក្នុងសៀវភៅ។', content: `${matchedCurr.chapterTitle} - ${matchedCurr.topicTitle}: ${matchedCurr.learningObjectives}`, durationMinutes: 25 },
+                  { stepNumber: 4, stepNameKm: 'ជំហានទី ៤', stepSubNameKm: 'ពង្រឹងពុទ្ធិ (Reinforcement & Practice)', teacherActivities: 'ដាក់លំហាត់អនុវត្តន៍លើក្តារខៀន ណែនាំសិស្សពិភាក្សាជាដៃគូ និងហៅសិស្សឡើងដោះស្រាយ។', studentActivities: 'សិស្សពិភាក្សា ដោះស្រាយលំហាត់ និងកែតម្រូវចម្លើយលើក្តារខៀនជាមួយគ្រូ។', content: 'លំហាត់អនុវត្តន៍ និងការពង្រឹងសមត្ថភាពដោះស្រាយ', durationMinutes: 12 },
+                  { stepNumber: 5, stepNameKm: 'ជំហានទី ៥', stepSubNameKm: 'បណ្តាំផ្ញើ និងកិច្ចការផ្ទះ (Homework & Closing)', teacherActivities: 'ដាក់កិច្ចការផ្ទះលំហាត់ក្នុងសៀវភៅពុម្ព និងផ្តាំផ្ញើសិស្សឱ្យមើលមេរៀនបន្តបន្ទាប់។', studentActivities: 'សិស្សកត់ត្រាកិច្ចការផ្ទះចូលក្នុងសៀវភៅ និងសម្អាតតុមុនចេញពីថ្នាក់។', content: `កិច្ចការផ្ទះលំហាត់សៀវភៅពុម្ពទំព័រ ${matchedCurr.studentBookPage}`, durationMinutes: 5 },
                 ],
-                assessmentHomework: 'លំហាត់អនុវត្តន៍ក្នុងសៀវភៅពុម្ព',
-                status: 'NOT_PREPARED',
+                assessmentHomework: `លំហាត់ក្នុងសៀវភៅពុម្ពគណិតវិទ្យាថ្នាក់ទី ៨ ទំព័រ ${matchedCurr.studentBookPage}`,
+                status: 'PREPARED',
                 updatedAt: new Date().toISOString()
               };
               newLessonPlans.push(newPlan);

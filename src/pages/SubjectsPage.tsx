@@ -102,20 +102,12 @@ export const SubjectsPage: React.FC = () => {
         <div>
           <h2 className="text-xl font-bold text-slate-900 dark:text-white flex items-center">
             <BookOpen className="w-5 h-5 mr-2 text-primary-600" />
-            មុខវិជ្ជាសិក្សា (Subjects Management)
+            មុខវិជ្ជាគណិតវិទ្យា ថ្នាក់ទី ៨ (Mathematics)
           </h2>
           <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-            បញ្ជីមុខវិជ្ជា កូដសម្គាល់ និងពណ៌សម្គាល់សម្រាប់កាលវិភាគ
+            កម្មវិធីសិក្សា និងបំណែងចែកម៉ោងបង្រៀនគណិតវិទ្យាថ្នាក់ទី ៨ (ពីជគណិត និងធរណីមាត្រ) • វិទ្យាល័យ ហ៊ុន សែន បាត់ដឹង
           </p>
         </div>
-
-        <button
-          onClick={handleOpenAdd}
-          className="px-4 py-2 text-xs font-semibold rounded-xl bg-primary-600 hover:bg-primary-700 text-white shadow-md shadow-primary-500/20 transition-all flex items-center self-start sm:self-auto"
-        >
-          <Plus className="w-4 h-4 mr-1.5" />
-          បន្ថែមមុខវិជ្ជាថ្មី
-        </button>
       </div>
 
       {/* Search */}

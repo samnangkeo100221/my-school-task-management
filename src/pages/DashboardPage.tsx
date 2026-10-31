@@ -163,17 +163,17 @@ export const DashboardPage: React.FC = () => {
 
       {/* Summary KPI Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {/* Total Teachers */}
+        {/* Solo Teacher Profile */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">គ្រូបង្រៀនសរុប</span>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">គ្រូបង្រៀនទទួលបន្ទុក</span>
             <div className="w-8 h-8 rounded-xl bg-blue-50 dark:bg-blue-950/60 text-blue-600 flex items-center justify-center">
               <GraduationCap className="w-4 h-4" />
             </div>
           </div>
-          <div className="mt-3 flex items-baseline justify-between">
-            <span className="text-2xl font-black text-slate-800 dark:text-white">{teachers.length}</span>
-            <span className="text-[11px] font-semibold text-emerald-600">សកម្ម ១០០%</span>
+          <div className="mt-3">
+            <span className="text-base font-black text-slate-800 dark:text-white block truncate">លោកគ្រូ កែវ សំណាង</span>
+            <span className="text-[11px] font-semibold text-emerald-600">គណិតវិទ្យា (២០ ម៉ោង/សប្តាហ៍)</span>
           </div>
         </div>
 
@@ -187,35 +187,35 @@ export const DashboardPage: React.FC = () => {
           </div>
           <div className="mt-3 flex items-baseline justify-between">
             <span className="text-2xl font-black text-slate-800 dark:text-white">{students.length}</span>
-            <span className="text-[11px] font-semibold text-primary-600">ថ្នាក់ទី ៨</span>
+            <span className="text-[11px] font-semibold text-primary-600">សិស្សថ្នាក់ទី ៨</span>
           </div>
         </div>
 
         {/* Total Classes */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">ថ្នាក់រៀន</span>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">ថ្នាក់រៀនទទួលបន្ទុក</span>
             <div className="w-8 h-8 rounded-xl bg-purple-50 dark:bg-purple-950/60 text-purple-600 flex items-center justify-center">
               <School className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3 flex items-baseline justify-between">
             <span className="text-2xl font-black text-slate-800 dark:text-white">{classes.length}</span>
-            <span className="text-[11px] font-semibold text-slate-500">8A, 8B, 8C, 8D</span>
+            <span className="text-[11px] font-semibold text-slate-500">៨ក, ៨ខ, ៨គ, ៨ឃ</span>
           </div>
         </div>
 
         {/* Curriculum Progress */}
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-4 shadow-sm">
           <div className="flex items-center justify-between">
-            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">វឌ្ឍនភាពកម្មវិធី</span>
+            <span className="text-xs font-medium text-slate-500 dark:text-slate-400">កម្មវិធីសិក្សាគណិតទី៨</span>
             <div className="w-8 h-8 rounded-xl bg-amber-50 dark:bg-amber-950/60 text-amber-600 flex items-center justify-center">
               <BookOpen className="w-4 h-4" />
             </div>
           </div>
           <div className="mt-3 flex items-baseline justify-between">
             <span className="text-2xl font-black text-slate-800 dark:text-white">{curriculum.length}</span>
-            <span className="text-[11px] font-semibold text-amber-600">៣០ មេរៀន / ១១០ ម៉ោង</span>
+            <span className="text-[11px] font-semibold text-amber-600">៣៨ សប្តាហ៍ / ១១០ ម៉ោង</span>
           </div>
         </div>
       </div>

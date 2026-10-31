@@ -219,24 +219,12 @@ export const TimetablePage: React.FC = () => {
       {/* Filter Selector Row */}
       <div className="bg-white dark:bg-slate-900 p-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col md:flex-row gap-3 items-center justify-between no-print">
         <div className="flex flex-wrap items-center gap-3 w-full">
-          {/* Teacher view filter */}
+          {/* Teacher indicator */}
           <div className="flex items-center space-x-2">
-            <span className="text-xs font-bold text-slate-600 dark:text-slate-300">មើលតាមគ្រូ៖</span>
-            <select
-              value={selectedTeacherId}
-              onChange={(e) => {
-                setSelectedTeacherId(e.target.value);
-                setSelectedClassId('');
-              }}
-              className="text-xs py-2 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:outline-none font-semibold cursor-pointer"
-            >
-              <option value="">-- មើលគ្រប់គ្រូទាំងអស់ --</option>
-              {teachers.map(t => (
-                <option key={t.teacherId} value={t.teacherId}>
-                  {t.fullName} ({t.teacherCode})
-                </option>
-              ))}
-            </select>
+            <span className="text-xs font-bold text-slate-600 dark:text-slate-300">គ្រូបង្រៀន៖</span>
+            <div className="px-3 py-1.5 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-blue-200 dark:border-blue-800 text-xs font-bold text-blue-700 dark:text-blue-300">
+              លោកគ្រូ កែវ សំណាង (គណិតវិទ្យា ថ្នាក់ទី៨)
+            </div>
           </div>
 
           {/* Class view filter */}

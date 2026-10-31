@@ -32,7 +32,7 @@ export const initialSchoolSettings: SchoolSettings = {
   districtKm: 'ឧដុង្គ',
   academicYearActiveId: 'AY-2025-2026',
   phone: '012 889 456',
-  email: 'info@batdoenghs.edu.kh',
+  email: 'samnang.keo@school.edu.kh',
   directorNameKm: 'គង់ វឌ្ឍនា',
   periods: initialPeriods,
   workingDays: [1, 2, 3, 4, 5, 6],
@@ -45,7 +45,7 @@ export const initialAcademicYears: AcademicYear[] = [
     startDate: '2025-11-01',
     endDate: '2026-08-31',
     status: 'ACTIVE',
-    description: 'ឆ្នាំសិក្សាគោលសម្រាប់កម្មវិធីសិក្សាលម្អិតថ្នាក់ទី ៨'
+    description: 'ឆ្នាំសិក្សាគោលសម្រាប់កម្មវិធីសិក្សាលម្អិតថ្នាក់ទី ៨ (គណិតវិទ្យា)'
   },
   {
     academicYearId: 'AY-2024-2025',
@@ -57,17 +57,19 @@ export const initialAcademicYears: AcademicYear[] = [
   }
 ];
 
+// Single subject: គណិតវិទ្យា
 export const initialSubjects: Subject[] = [
-  { subjectId: 'SUB-MATH-8', subjectCode: 'MATH-8', subjectName: 'គណិតវិទ្យា', description: 'គណិតវិទ្យាថ្នាក់ទី ៨ (ពីជគណិត និងធរណីមាត្រ)', color: '#2563eb', status: 'ACTIVE' },
-  { subjectId: 'SUB-KHM-8', subjectCode: 'KHM-8', subjectName: 'ភាសាខ្មែរ', description: 'អក្សរសាស្ត្រខ្មែរ និងវេយ្យាករណ៍', color: '#dc2626', status: 'ACTIVE' },
-  { subjectId: 'SUB-PHYS-8', subjectCode: 'PHYS-8', subjectName: 'រូបវិទ្យា', description: 'រូបវិទ្យាថ្នាក់ទី ៨', color: '#0891b2', status: 'ACTIVE' },
-  { subjectId: 'SUB-CHEM-8', subjectCode: 'CHEM-8', subjectName: 'គីមីវិទ្យា', description: 'គីមីវិទ្យាថ្នាក់ទី ៨', color: '#7c3aed', status: 'ACTIVE' },
-  { subjectId: 'SUB-BIO-8', subjectCode: 'BIO-8', subjectName: 'ជីវវិទ្យា', description: 'ជីវវិទ្យាថ្នាក់ទី ៨', color: '#16a34a', status: 'ACTIVE' },
-  { subjectId: 'SUB-HIST-8', subjectCode: 'HIST-8', subjectName: 'ប្រវត្តិវិទ្យា', description: 'ប្រវត្តិសាស្ត្រកម្ពុជា និងសកលលោក', color: '#d97706', status: 'ACTIVE' },
-  { subjectId: 'SUB-GEO-8', subjectCode: 'GEO-8', subjectName: 'ភូមិវិទ្យា', description: 'ភូមិវិទ្យាថ្នាក់ទី ៨', color: '#059669', status: 'ACTIVE' },
-  { subjectId: 'SUB-ENG-8', subjectCode: 'ENG-8', subjectName: 'ភាសាអង់គ្លេស', description: 'English for Grade 8', color: '#ea580c', status: 'ACTIVE' },
+  {
+    subjectId: 'SUB-MATH-8',
+    subjectCode: 'MATH-8',
+    subjectName: 'គណិតវិទ្យា',
+    description: 'គណិតវិទ្យាថ្នាក់ទី ៨ (ពីជគណិត និងធរណីមាត្រ - វិទ្យាល័យហ៊ុនសែន បាត់ដឹង)',
+    color: '#2563eb',
+    status: 'ACTIVE'
+  }
 ];
 
+// Single teacher: លោកគ្រូ កែវ សំណាង
 export const initialTeachers: Teacher[] = [
   {
     teacherId: 'T-001',
@@ -77,70 +79,19 @@ export const initialTeachers: Teacher[] = [
     phone: '012 889 456',
     email: 'samnang.keo@school.edu.kh',
     address: 'ភូមិបាត់ដឹង ឃុំក្សេមក្សាន្ត ស្រុកឧដុង្គ ខេត្តកំពង់ស្ពឺ',
-    subjects: ['SUB-MATH-8', 'SUB-PHYS-8'],
+    subjects: ['SUB-MATH-8'],
     assignedClasses: ['CLS-8A', 'CLS-8B', 'CLS-8C', 'CLS-8D'],
     employmentStatus: 'ACTIVE',
     weeklyWorkloadHours: 20
-  },
-  {
-    teacherId: 'T-002',
-    teacherCode: 'T-CS02',
-    fullName: 'ឈិត សិទ្ធិ',
-    gender: 'M',
-    phone: '017 616 145',
-    email: 'siddhi.chhit@school.edu.kh',
-    address: 'ស្រុកឧដុង្គ ខេត្តកំពង់ស្ពឺ',
-    subjects: ['SUB-MATH-8'],
-    assignedClasses: ['CLS-8A'],
-    employmentStatus: 'ACTIVE',
-    weeklyWorkloadHours: 18
-  },
-  {
-    teacherId: 'T-003',
-    teacherCode: 'T-YK03',
-    fullName: 'យូ គឹមយួង',
-    gender: 'M',
-    phone: '092 402 792',
-    email: 'kimyuong.you@school.edu.kh',
-    address: 'ខេត្តកំពង់ស្ពឺ',
-    subjects: ['SUB-PHYS-8'],
-    assignedClasses: ['CLS-8B', 'CLS-8C'],
-    employmentStatus: 'ACTIVE',
-    weeklyWorkloadHours: 18
-  },
-  {
-    teacherId: 'T-004',
-    teacherCode: 'T-LS04',
-    fullName: 'លី សុខខេ',
-    gender: 'F',
-    phone: '011 930 609',
-    email: 'sokkhe.ly@school.edu.kh',
-    address: 'ខេត្តកំពង់ស្ពឺ',
-    subjects: ['SUB-KHM-8'],
-    assignedClasses: ['CLS-8A', 'CLS-8B'],
-    employmentStatus: 'ACTIVE',
-    weeklyWorkloadHours: 16
-  },
-  {
-    teacherId: 'T-005',
-    teacherCode: 'T-SO05',
-    fullName: 'ស៊ឹម សំអោ',
-    gender: 'M',
-    phone: '017 298 481',
-    email: 'samo.sim@school.edu.kh',
-    address: 'ខេត្តកំពង់ស្ពឺ',
-    subjects: ['SUB-CHEM-8', 'SUB-BIO-8'],
-    assignedClasses: ['CLS-8C', 'CLS-8D'],
-    employmentStatus: 'ACTIVE',
-    weeklyWorkloadHours: 16
   }
 ];
 
+// 4 Grade 8 Classes taught by Keo Samnang
 export const initialClasses: ClassRoom[] = [
   { classId: 'CLS-8A', grade: 8, className: '៨ក (8A)', academicYearId: 'AY-2025-2026', homeroomTeacherId: 'T-001', roomNumber: 'B1-01', capacity: 45, status: 'ACTIVE' },
-  { classId: 'CLS-8B', grade: 8, className: '៨ខ (8B)', academicYearId: 'AY-2025-2026', homeroomTeacherId: 'T-002', roomNumber: 'B1-02', capacity: 45, status: 'ACTIVE' },
-  { classId: 'CLS-8C', grade: 8, className: '៨គ (8C)', academicYearId: 'AY-2025-2026', homeroomTeacherId: 'T-003', roomNumber: 'B1-03', capacity: 42, status: 'ACTIVE' },
-  { classId: 'CLS-8D', grade: 8, className: '៨ឃ (8D)', academicYearId: 'AY-2025-2026', homeroomTeacherId: 'T-004', roomNumber: 'B1-04', capacity: 44, status: 'ACTIVE' },
+  { classId: 'CLS-8B', grade: 8, className: '៨ខ (8B)', academicYearId: 'AY-2025-2026', homeroomTeacherId: 'T-001', roomNumber: 'B1-02', capacity: 45, status: 'ACTIVE' },
+  { classId: 'CLS-8C', grade: 8, className: '៨គ (8C)', academicYearId: 'AY-2025-2026', homeroomTeacherId: 'T-001', roomNumber: 'B1-03', capacity: 42, status: 'ACTIVE' },
+  { classId: 'CLS-8D', grade: 8, className: '៨ឃ (8D)', academicYearId: 'AY-2025-2026', homeroomTeacherId: 'T-001', roomNumber: 'B1-04', capacity: 44, status: 'ACTIVE' },
 ];
 
 export const initialStudents: Student[] = [
@@ -171,73 +122,108 @@ export const initialCalendarEvents: SchoolCalendarEvent[] = [
   { eventId: 'EV-12', academicYearId: 'AY-2025-2026', eventTitle: 'បិទបញ្ចប់ឆ្នាំសិក្សា ២០២៥-២០២៦', eventType: 'ACADEMIC_CLOSING', startDate: '2026-08-31', endDate: '2026-08-31', isFullDay: true, isTeachingDay: true, description: 'ទិវាបិទបញ្ចប់ឆ្នាំសិក្សា និងចែករង្វាន់' },
 ];
 
+// Timetable for Keo Samnang (Grade 8 Math - 20 periods/week across 8A, 8B, 8C, 8D)
 export const initialTimetable: TimetableSlot[] = [
-  // Monday
-  { timetableId: 'TT-01', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8D', subjectId: 'SUB-MATH-8', dayOfWeek: 1, periodNumber: 1, startTime: '07:00', endTime: '08:00', room: 'B1-04', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-02', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8D', subjectId: 'SUB-MATH-8', dayOfWeek: 1, periodNumber: 2, startTime: '08:00', endTime: '09:00', room: 'B1-04', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-03', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8C', subjectId: 'SUB-MATH-8', dayOfWeek: 1, periodNumber: 3, startTime: '09:00', endTime: '10:00', room: 'B1-03', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-04', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8C', subjectId: 'SUB-MATH-8', dayOfWeek: 1, periodNumber: 4, startTime: '10:00', endTime: '11:00', room: 'B1-03', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-05', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8A', subjectId: 'SUB-MATH-8', dayOfWeek: 1, periodNumber: 5, startTime: '13:00', endTime: '14:00', room: 'B1-01', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-06', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8A', subjectId: 'SUB-MATH-8', dayOfWeek: 1, periodNumber: 6, startTime: '14:00', endTime: '15:00', room: 'B1-01', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  // Monday: 8A (P1, P2), 8B (P3, P4)
+  { timetableId: 'TT-01', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8A', subjectId: 'SUB-MATH-8', dayOfWeek: 1, periodNumber: 1, startTime: '07:00', endTime: '08:00', room: 'B1-01', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-02', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8A', subjectId: 'SUB-MATH-8', dayOfWeek: 1, periodNumber: 2, startTime: '08:00', endTime: '09:00', room: 'B1-01', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-03', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8B', subjectId: 'SUB-MATH-8', dayOfWeek: 1, periodNumber: 3, startTime: '09:00', endTime: '10:00', room: 'B1-02', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-04', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8B', subjectId: 'SUB-MATH-8', dayOfWeek: 1, periodNumber: 4, startTime: '10:00', endTime: '11:00', room: 'B1-02', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
 
-  // Tuesday
-  { timetableId: 'TT-07', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8B', subjectId: 'SUB-MATH-8', dayOfWeek: 2, periodNumber: 5, startTime: '13:00', endTime: '14:00', room: 'B1-02', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-08', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8B', subjectId: 'SUB-MATH-8', dayOfWeek: 2, periodNumber: 6, startTime: '14:00', endTime: '15:00', room: 'B1-02', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  // Tuesday: 8C (P1, P2), 8D (P3, P4)
+  { timetableId: 'TT-05', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8C', subjectId: 'SUB-MATH-8', dayOfWeek: 2, periodNumber: 1, startTime: '07:00', endTime: '08:00', room: 'B1-03', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-06', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8C', subjectId: 'SUB-MATH-8', dayOfWeek: 2, periodNumber: 2, startTime: '08:00', endTime: '09:00', room: 'B1-03', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-07', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8D', subjectId: 'SUB-MATH-8', dayOfWeek: 2, periodNumber: 3, startTime: '09:00', endTime: '10:00', room: 'B1-04', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-08', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8D', subjectId: 'SUB-MATH-8', dayOfWeek: 2, periodNumber: 4, startTime: '10:00', endTime: '11:00', room: 'B1-04', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
 
-  // Wednesday
-  { timetableId: 'TT-09', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8C', subjectId: 'SUB-MATH-8', dayOfWeek: 3, periodNumber: 5, startTime: '13:00', endTime: '14:00', room: 'B1-03', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-10', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8C', subjectId: 'SUB-MATH-8', dayOfWeek: 3, periodNumber: 6, startTime: '14:00', endTime: '15:00', room: 'B1-03', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  // Wednesday: 8A (P1, P2), 8B (P3, P4)
+  { timetableId: 'TT-09', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8A', subjectId: 'SUB-MATH-8', dayOfWeek: 3, periodNumber: 1, startTime: '07:00', endTime: '08:00', room: 'B1-01', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-10', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8A', subjectId: 'SUB-MATH-8', dayOfWeek: 3, periodNumber: 2, startTime: '08:00', endTime: '09:00', room: 'B1-01', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-11', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8B', subjectId: 'SUB-MATH-8', dayOfWeek: 3, periodNumber: 3, startTime: '09:00', endTime: '10:00', room: 'B1-02', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-12', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8B', subjectId: 'SUB-MATH-8', dayOfWeek: 3, periodNumber: 4, startTime: '10:00', endTime: '11:00', room: 'B1-02', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
 
-  // Thursday
-  { timetableId: 'TT-11', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8A', subjectId: 'SUB-MATH-8', dayOfWeek: 4, periodNumber: 5, startTime: '13:00', endTime: '14:00', room: 'B1-01', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-12', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8A', subjectId: 'SUB-MATH-8', dayOfWeek: 4, periodNumber: 6, startTime: '14:00', endTime: '15:00', room: 'B1-01', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-13', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8D', subjectId: 'SUB-MATH-8', dayOfWeek: 4, periodNumber: 7, startTime: '15:00', endTime: '16:00', room: 'B1-04', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-14', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8D', subjectId: 'SUB-MATH-8', dayOfWeek: 4, periodNumber: 8, startTime: '16:00', endTime: '17:00', room: 'B1-04', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  // Thursday: 8C (P1), 8D (P2)
+  { timetableId: 'TT-13', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8C', subjectId: 'SUB-MATH-8', dayOfWeek: 4, periodNumber: 1, startTime: '07:00', endTime: '08:00', room: 'B1-03', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-14', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8D', subjectId: 'SUB-MATH-8', dayOfWeek: 4, periodNumber: 2, startTime: '08:00', endTime: '09:00', room: 'B1-04', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
 
-  // Friday
-  { timetableId: 'TT-15', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8B', subjectId: 'SUB-MATH-8', dayOfWeek: 5, periodNumber: 5, startTime: '13:00', endTime: '14:00', room: 'B1-02', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
-  { timetableId: 'TT-16', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8B', subjectId: 'SUB-MATH-8', dayOfWeek: 5, periodNumber: 6, startTime: '14:00', endTime: '15:00', room: 'B1-02', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  // Friday: 8A (P1), 8B (P2)
+  { timetableId: 'TT-15', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8A', subjectId: 'SUB-MATH-8', dayOfWeek: 5, periodNumber: 1, startTime: '07:00', endTime: '08:00', room: 'B1-01', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-16', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8B', subjectId: 'SUB-MATH-8', dayOfWeek: 5, periodNumber: 2, startTime: '08:00', endTime: '09:00', room: 'B1-02', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+
+  // Saturday: 8C (P1, P2), 8D (P3, P4)
+  { timetableId: 'TT-17', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8C', subjectId: 'SUB-MATH-8', dayOfWeek: 6, periodNumber: 1, startTime: '07:00', endTime: '08:00', room: 'B1-03', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-18', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8C', subjectId: 'SUB-MATH-8', dayOfWeek: 6, periodNumber: 2, startTime: '08:00', endTime: '09:00', room: 'B1-03', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-19', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8D', subjectId: 'SUB-MATH-8', dayOfWeek: 6, periodNumber: 3, startTime: '09:00', endTime: '10:00', room: 'B1-04', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
+  { timetableId: 'TT-20', academicYearId: 'AY-2025-2026', teacherId: 'T-001', classId: 'CLS-8D', subjectId: 'SUB-MATH-8', dayOfWeek: 6, periodNumber: 4, startTime: '10:00', endTime: '11:00', room: 'B1-04', effectiveStartDate: '2025-11-01', effectiveEndDate: '2026-08-31', status: 'ACTIVE' },
 ];
 
+// Complete Curriculum: Grade 8 Mathematics (38 Weeks / 18 Chapters / 110 Periods)
 export const initialCurriculum: CurriculumItem[] = [
+  // Semester 1: Chapters 1 to 9
   { curriculumId: 'CUR-01', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'វិច្ឆិកា', weekNumber: 1, chapterNumber: 1, chapterTitle: 'ចំនួនសនិទាន', lessonTitle: 'មេរៀនទី១៖ ចំនួនសនិទាន', topicTitle: '១. សញ្ញាណចំនួនសនិទាន', lessonOrder: 1, requiredPeriods: 2, learningObjectives: 'កំណត់និយមន័យចំនួនសនិទានតាមរយៈឧទាហរណ៍ជាក់ស្តែងបានត្រឹមត្រូវ', studentBookPage: '1-2', teacherBookPage: '1-2', status: 'PLANNED' },
   { curriculumId: 'CUR-02', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'វិច្ឆិកា', weekNumber: 2, chapterNumber: 1, chapterTitle: 'ចំនួនសនិទាន', lessonTitle: 'មេរៀនទី១៖ ចំនួនសនិទាន (ត)', topicTitle: '២.១. ការប្រៀបធៀបចំនួនសនិទាន និង ២.២. ការរៀបលំដាប់', lessonOrder: 2, requiredPeriods: 2, learningObjectives: 'ប្រៀបធៀប និងរៀបលំដាប់ចំនួនសនិទានលើបន្ទាត់ចំនួនបានត្រឹមត្រូវ', studentBookPage: '2-4', teacherBookPage: '3-4', status: 'PLANNED' },
-  { curriculumId: 'CUR-03', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'វិច្ឆិកា', weekNumber: 3, chapterNumber: 1, chapterTitle: 'ចំនួនសនិទាន', lessonTitle: 'មេរៀនទី១៖ ចំនួនសនិទាន (ត)', topicTitle: '៣.១. ប្រមាណវិធីបូក និង ៣.៣. ប្រមាណវិធីដកចំនួនសនិទាន', lessonOrder: 3, requiredPeriods: 2, learningObjectives: 'អនុវត្តប្រមាណវិធីបូកនិងដកលើចំនួនសនិទានបានត្រឹមត្រូវ', studentBookPage: '5-8', teacherBookPage: '5-8', status: 'PLANNED' },
+  { curriculumId: 'CUR-03', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'វិច្ឆិកា', weekNumber: 3, chapterNumber: 1, chapterTitle: 'ចំនួនសនិទាន', lessonTitle: 'មេរៀនទី១៖ ចំនួនសនិទាន (ត)', topicTitle: '៣.១. ប្រមាណវិធីបូក និង ៣.២. ប្រមាណវិធីដកចំនួនសនិទាន', lessonOrder: 3, requiredPeriods: 2, learningObjectives: 'អនុវត្តប្រមាណវិធីបូកនិងដកលើចំនួនសនិទានបានត្រឹមត្រូវ', studentBookPage: '5-8', teacherBookPage: '5-8', status: 'PLANNED' },
   { curriculumId: 'CUR-04', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'វិច្ឆិកា', weekNumber: 4, chapterNumber: 1, chapterTitle: 'ចំនួនសនិទាន', lessonTitle: 'មេរៀនទី១៖ ចំនួនសនិទាន (ត)', topicTitle: '៤. ប្រមាណវិធីគុណនៃចំនួនសនិទាន', lessonOrder: 4, requiredPeriods: 2, learningObjectives: 'ធ្វើប្រមាណវិធីគុណលើចំនួនសនិទានតាមក្បួនគុណភាគយកនិងភាគបែង', studentBookPage: '8-9', teacherBookPage: '9-10', status: 'PLANNED' },
-  { curriculumId: 'CUR-05', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'វិច្ឆិកា', weekNumber: 5, chapterNumber: 1, chapterTitle: 'ចំនួនសនិទាន', lessonTitle: 'មេរៀនទី១៖ ចំនួនសនិទាន (បញ្ចប់)', topicTitle: '៥. ប្រមាណវិធីចែកនៃចំនួនសនិទាន និង ៦. ចំណោទ', lessonOrder: 5, requiredPeriods: 2, learningObjectives: 'ធ្វើប្រមាណវិធីចែកនិងដោះស្រាយចំណោទចំនួនសនិទានបានត្រឹមត្រូវ', studentBookPage: '10-11', teacherBookPage: '11-12', status: 'PLANNED' },
+  { curriculumId: 'CUR-05', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'ធ្នូ', weekNumber: 5, chapterNumber: 1, chapterTitle: 'ចំនួនសនិទាន', lessonTitle: 'មេរៀនទី១៖ ចំនួនសនិទាន (បញ្ចប់)', topicTitle: '៥. ប្រមាណវិធីចែកនៃចំនួនសនិទាន និង ៦. ចំណោទ', lessonOrder: 5, requiredPeriods: 2, learningObjectives: 'ធ្វើប្រមាណវិធីចែកនិងដោះស្រាយចំណោទចំនួនសនិទានបានត្រឹមត្រូវ', studentBookPage: '10-11', teacherBookPage: '11-12', status: 'PLANNED' },
+
   { curriculumId: 'CUR-06', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'ធ្នូ', weekNumber: 6, chapterNumber: 2, chapterTitle: 'ស្វ័យគុណ', lessonTitle: 'មេរៀនទី២៖ ស្វ័យគុណ', topicTitle: '១. សញ្ញាណស្វ័យគុណ និង ២. វិធីគុណស្វ័យគុណ', lessonOrder: 6, requiredPeriods: 2, learningObjectives: 'កំណត់សញ្ញាណ និងនិយមន័យស្វ័យគុណ a^n និងវិធីគុណគោលដូចគ្នា', studentBookPage: '13-15', teacherBookPage: '13-15', status: 'PLANNED' },
   { curriculumId: 'CUR-07', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'ធ្នូ', weekNumber: 7, chapterNumber: 2, chapterTitle: 'ស្វ័យគុណ', lessonTitle: 'មេរៀនទី២៖ ស្វ័យគុណ (ត)', topicTitle: '៣. វិធីចែកស្វ័យគុណ និង ៤. លក្ខណៈស្វ័យគុណ', lessonOrder: 7, requiredPeriods: 2, learningObjectives: 'ចេះអនុវត្តវិធីចែកស្វ័យគុណ និងទាញលក្ខណៈស្វ័យគុណនៃស្វ័យគុណ', studentBookPage: '16-18', teacherBookPage: '16-18', status: 'PLANNED' },
   { curriculumId: 'CUR-08', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'ធ្នូ', weekNumber: 8, chapterNumber: 2, chapterTitle: 'ស្វ័យគុណ', lessonTitle: 'មេរៀនទី២៖ ស្វ័យគុណ (ត)', topicTitle: '៤.៤. ស្វ័យគុណនៃ១០ និង ៤.៥. ទម្រង់ស្តង់ដានៃស្វ័យគុណ', lessonOrder: 8, requiredPeriods: 2, learningObjectives: 'កំណត់ទម្រង់ស្តង់ដា A x 10^n ដែល 1 <= A < 10', studentBookPage: '19-22', teacherBookPage: '19-22', status: 'PLANNED' },
   { curriculumId: 'CUR-09', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'ធ្នូ', weekNumber: 9, chapterNumber: 2, chapterTitle: 'ស្វ័យគុណ', lessonTitle: 'មេរៀនទី២៖ ស្វ័យគុណ (បញ្ចប់)', topicTitle: '៤.៦. ឫសការេ និងឫសគូបនៃចំនួនគត់រ៉ឺឡាទីប', lessonOrder: 9, requiredPeriods: 2, learningObjectives: 'គណនាឫសការេ និងឫសគូប និងការប្រើប្រាស់ម៉ាស៊ីនគិតលេខ', studentBookPage: '22-24', teacherBookPage: '23-24', status: 'PLANNED' },
+
   { curriculumId: 'CUR-10', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មករា', weekNumber: 10, chapterNumber: 3, chapterTitle: 'ទំហំសមាមាត្រ និង ភាគរយ', lessonTitle: 'មេរៀនទី៣៖ ទំហំសមាមាត្រ និង ភាគរយ', topicTitle: '១.១. ទំហំសមាមាត្រស្រប និង ១.២. លក្ខណៈ', lessonOrder: 10, requiredPeriods: 2, learningObjectives: 'កំណត់ទំហំសមាមាត្រស្រប និងរូបមន្ត y = ax តាមរយៈឧទាហរណ៍', studentBookPage: '27-29', teacherBookPage: '27-29', status: 'PLANNED' },
   { curriculumId: 'CUR-11', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មករា', weekNumber: 11, chapterNumber: 3, chapterTitle: 'ទំហំសមាមាត្រ និង ភាគរយ', lessonTitle: 'មេរៀនទី៣៖ ទំហំសមាមាត្រ និង ភាគរយ (ត)', topicTitle: '១.៣. ទំហំសមាមាត្រច្រាស និងចំណោទ', lessonOrder: 11, requiredPeriods: 2, learningObjectives: 'ដោះស្រាយចំណោទទាក់ទងនឹងសមាមាត្រច្រាស y = a/x', studentBookPage: '30-31', teacherBookPage: '30-31', status: 'PLANNED' },
   { curriculumId: 'CUR-12', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មករា', weekNumber: 12, chapterNumber: 3, chapterTitle: 'ទំហំសមាមាត្រ និង ភាគរយ', lessonTitle: 'មេរៀនទី៣៖ ទំហំសមាមាត្រ និង ភាគរយ (ត)', topicTitle: '២. ភាគរយ (ប្រាក់ចំណេញ ប្រាក់ខាត និងការបញ្ចុះតម្លៃ)', lessonOrder: 12, requiredPeriods: 2, learningObjectives: 'គណនាភាគរយប្រាក់ចំណេញ ប្រាក់ខាត និងការបញ្ចុះតម្លៃក្នុងជំនួញ', studentBookPage: '32-35', teacherBookPage: '32-35', status: 'PLANNED' },
   { curriculumId: 'CUR-13', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មករា', weekNumber: 13, chapterNumber: 3, chapterTitle: 'ទំហំសមាមាត្រ និង ភាគរយ', lessonTitle: 'មេរៀនទី៣៖ ទំហំសមាមាត្រ និង ភាគរយ (បញ្ចប់)', topicTitle: '២.៥. ការប្រាក់សាមញ្ញ និង ២.៦. ការប្រាក់សមាស', lessonOrder: 13, requiredPeriods: 2, learningObjectives: 'ស្គាល់រូបមន្តការប្រាក់ I = PRT/100 និងការប្រាក់សមាសក្នុងជីវភាពរស់នៅ', studentBookPage: '35-40', teacherBookPage: '35-40', status: 'PLANNED' },
+
   { curriculumId: 'CUR-14', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កុម្ភៈ', weekNumber: 14, chapterNumber: 4, chapterTitle: 'រង្វាស់រង្វាល់', lessonTitle: 'មេរៀនទី៤៖ រង្វាស់រង្វាល់', topicTitle: '១. ផ្ទៃក្រឡា និងមាឌ ២. ម៉ាសធៀបនឹងផ្ទៃក្រឡា', lessonOrder: 14, requiredPeriods: 2, learningObjectives: 'គណនាផ្ទៃក្រឡានិងមាឌ ម៉ាសធៀបផ្ទៃក្រឡា g/m^2', studentBookPage: '43-46', teacherBookPage: '43-46', status: 'PLANNED' },
   { curriculumId: 'CUR-15', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កុម្ភៈ', weekNumber: 15, chapterNumber: 4, chapterTitle: 'រង្វាស់រង្វាល់', lessonTitle: 'មេរៀនទី៤៖ រង្វាស់រង្វាល់ (បញ្ចប់)', topicTitle: '៣. ម៉ាសធៀបនឹងមាឌ និង ៤. ល្បឿនមធ្យម', lessonOrder: 15, requiredPeriods: 2, learningObjectives: 'គណនាម៉ាសមាឌ និងល្បឿនមធ្យម v = d/t', studentBookPage: '46-49', teacherBookPage: '46-49', status: 'PLANNED' },
+
   { curriculumId: 'CUR-16', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កុម្ភៈ', weekNumber: 16, chapterNumber: 5, chapterTitle: 'កន្សោមពីជគណិត', lessonTitle: 'មេរៀនទី៥៖ កន្សោមពីជគណិត', topicTitle: '១. ឯកធា (សញ្ញាណ ឯកធាដូចគ្នា ដឺក្រេ និងប្រមាណវិធី)', lessonOrder: 16, requiredPeriods: 2, learningObjectives: 'កំណត់អថេរ មេគុណ ដឺក្រេ និងធ្វើប្រមាណវិធីលើឯកធា', studentBookPage: '51-56', teacherBookPage: '51-56', status: 'PLANNED' },
-  { curriculumId: 'CUR-17', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មីនា', weekNumber: 17, chapterNumber: 5, chapterTitle: 'កន្សោមពីជគណិត', lessonTitle: 'មេរៀនទី៥៖ កន្សោមពីជគណិត (ត)', topicTitle: '២. ពហុធា (សញ្ញាណ ដឺក្រេ វិធីបូក ដក គុណ ចែក)', lessonOrder: 17, requiredPeriods: 2, learningObjectives: 'ធ្វើប្រមាណវិធីទាំងបួនលើពហុធាបានត្រឹមត្រូវ', studentBookPage: '56-62', teacherBookPage: '56-62', status: 'PLANNED' },
+  { curriculumId: 'CUR-17', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កុម្ភៈ', weekNumber: 17, chapterNumber: 5, chapterTitle: 'កន្សោមពីជគណិត', lessonTitle: 'មេរៀនទី៥៖ កន្សោមពីជគណិត (ត)', topicTitle: '២. ពហុធា (សញ្ញាណ ដឺក្រេ វិធីបូក ដក គុណ ចែក)', lessonOrder: 17, requiredPeriods: 2, learningObjectives: 'ធ្វើប្រមាណវិធីទាំងបួនលើពហុធាបានត្រឹមត្រូវ', studentBookPage: '56-62', teacherBookPage: '56-62', status: 'PLANNED' },
   { curriculumId: 'CUR-18', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មីនា', weekNumber: 18, chapterNumber: 5, chapterTitle: 'កន្សោមពីជគណិត', lessonTitle: 'មេរៀនទី៥៖ កន្សោមពីជគណិត (បញ្ចប់)', topicTitle: '៣. សមភាពសំខាន់ៗ (a+b)^2, (a-b)^2, a^2-b^2', lessonOrder: 18, requiredPeriods: 2, learningObjectives: 'ប្រើប្រាស់រូបមន្តសមភាពសំខាន់ៗក្នុងការគណនានិងពង្រាយ', studentBookPage: '63-72', teacherBookPage: '63-72', status: 'PLANNED' },
-  { curriculumId: 'CUR-19', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មីនា', weekNumber: 19, chapterNumber: 7, chapterTitle: 'សមីការដឺក្រេទី១ មានមួយអញាត', lessonTitle: 'មេរៀនទី៧៖ សមីការដឺក្រេទី១', topicTitle: '១. សញ្ញាណសមីការ និងការដោះស្រាយសមីការ ax+b=0', lessonOrder: 19, requiredPeriods: 2, learningObjectives: 'ដោះស្រាយសមីការដឺក្រេទី១មានមួយអញ្ញាតតាមវិធានផ្លាស់ប្តូរអងគ', studentBookPage: '89-94', teacherBookPage: '89-94', status: 'PLANNED' },
-  { curriculumId: 'CUR-20', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មេសា', weekNumber: 20, chapterNumber: 7, chapterTitle: 'សមីការដឺក្រេទី១ មានមួយអញាត', lessonTitle: 'មេរៀនទី៧៖ សមីការដឺក្រេទី១ (បញ្ចប់)', topicTitle: '២. ចំណោទសមីការដឺក្រេទី១ មានមួយអញ្ញាត', lessonOrder: 20, requiredPeriods: 2, learningObjectives: 'អនុវត្តជំហានទាំង៤ក្នុងការដោះស្រាយចំណោទគណិតវិទ្យា', studentBookPage: '97-100', teacherBookPage: '97-100', status: 'PLANNED' },
-  { curriculumId: 'CUR-21', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មេសា', weekNumber: 21, chapterNumber: 8, chapterTitle: 'វិសមីការដឺក្រេទី១ មានមួយអញាត', lessonTitle: 'មេរៀនទី៨៖ វិសមីការដឺក្រេទី១', topicTitle: '១. សញ្ញាណវិសមីការ និងដំណោះស្រាយលើអ័ក្សចំនួន', lessonOrder: 21, requiredPeriods: 2, learningObjectives: 'ដោះស្រាយវិសមីការ និងតាងសំនុំចម្លើយលើបន្ទាត់ចំនួន', studentBookPage: '103-112', teacherBookPage: '103-112', status: 'PLANNED' },
-  { curriculumId: 'CUR-22', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'ឧសភា', weekNumber: 22, chapterNumber: 9, chapterTitle: 'ប្លង់កូអរដោណេ និងក្រាប', lessonTitle: 'មេរៀនទី៩៖ ប្លង់កូអរដោណេ និងក្រាប', topicTitle: "១. សញ្ញាណប្លង់កូអរដោណេ (x'x, y'y) និងការសង់ក្រាប y=ax+b", lessonOrder: 22, requiredPeriods: 2, learningObjectives: 'ចេះកំណត់ចំណុចក្នុងប្លង់កូអរដោណេ និងសង់ក្រាបបន្ទាត់', studentBookPage: '115-121', teacherBookPage: '115-121', status: 'PLANNED' },
-  { curriculumId: 'CUR-23', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'ឧសភា', weekNumber: 23, chapterNumber: 10, chapterTitle: 'ស្ថិតិ', lessonTitle: 'មេរៀនទី១០៖ ស្ថិតិ', topicTitle: '១. តារាងបែងចែកប្រេកង់ និងការគណនាមធ្យម មេដ្យាន ម៉ូត', lessonOrder: 23, requiredPeriods: 2, learningObjectives: 'សង់តារាងប្រេកង់ គណនាមធ្យមនព្វន្ធ មេដ្យាន និងម៉ូតនៃទិន្នន័យ', studentBookPage: '123-136', teacherBookPage: '123-136', status: 'PLANNED' },
-  { curriculumId: 'CUR-24', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មិថុនា', weekNumber: 24, chapterNumber: 11, chapterTitle: 'ប្រូបាប', lessonTitle: 'មេរៀនទី១១៖ ប្រូបាប', topicTitle: '១. សញ្ញាណប្រូបាប ព្រឹត្តិការណ៍ និងរូបមន្ត P(A) = ករណីស្រប/ករណីអាច', lessonOrder: 24, requiredPeriods: 2, learningObjectives: 'គណនាប្រូបាបនៃព្រឹត្តិការណ៍ក្នុងការបោះកាក់ និងគ្រាប់ឡុកឡាក់', studentBookPage: '141-145', teacherBookPage: '141-145', status: 'PLANNED' },
-  { curriculumId: 'CUR-25', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មិថុនា', weekNumber: 25, chapterNumber: 12, chapterTitle: 'ការប្រៀបធៀបត្រីកោណ', lessonTitle: 'មេរៀនទី១២៖ ការប្រៀបធៀបត្រីកោណ', topicTitle: '១. លក្ខខណ្ឌត្រីកោណប៉ុនគ្នា (ម.ជ.ម, ជ.ម.ជ, ជ.ជ.ជ, អ.ម, អ.ជ)', lessonOrder: 25, requiredPeriods: 2, learningObjectives: 'ស្រាយបំភ្លឺត្រីកោណពីរប៉ុនគ្នាតាមលក្ខខណ្ឌនីមួយៗ', studentBookPage: '147-156', teacherBookPage: '147-156', status: 'PLANNED' },
-  { curriculumId: 'CUR-26', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កក្កដា', weekNumber: 26, chapterNumber: 13, chapterTitle: 'ចតុកោណ', lessonTitle: 'មេរៀនទី១៣៖ ចតុកោណ', topicTitle: '១. លក្ខណៈប្រលេឡូក្រាម ចតុកោណកែង ចតុកោណស្មើ និងចតុកោណព្នាយ', lessonOrder: 26, requiredPeriods: 2, learningObjectives: 'ស្គាល់លក្ខណៈសម្គាល់ និងស្រាយបញ្ជាក់ប្រភេទចតុកោណ', studentBookPage: '169-184', teacherBookPage: '169-184', status: 'PLANNED' },
-  { curriculumId: 'CUR-27', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កក្កដា', weekNumber: 27, chapterNumber: 14, chapterTitle: 'ផ្ទៃក្រឡាពហុកោណ', lessonTitle: 'មេរៀនទី១៤៖ ផ្ទៃក្រឡាពហុកោណ', topicTitle: '១. ផ្ទៃក្រឡាប្រលេឡូក្រាម ចតុកោណស្មើ និងចតុកោណព្នាយ', lessonOrder: 27, requiredPeriods: 2, learningObjectives: "គណនាផ្ទៃក្រឡាពហុកោណតាមរូបមន្ត S=bh, S=1/2(d1*d2), S=1/2(b+b')h", studentBookPage: '187-193', teacherBookPage: '187-193', status: 'PLANNED' },
-  { curriculumId: 'CUR-28', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កក្កដា', weekNumber: 28, chapterNumber: 15, chapterTitle: 'រង្វង់', lessonTitle: 'មេរៀនទី១៥៖ រង្វង់', topicTitle: '១. និយមន័យ មុំផ្ចិត ធ្នូ អង្កត់ធ្នូ និងលក្ខណៈឆ្លុះ', lessonOrder: 28, requiredPeriods: 2, learningObjectives: 'គណនាប្រវែងធ្នូ បរិមាត្ររង្វង់ C = 2*pi*r និងទំនាក់ទំនងមុំផ្ចិត', studentBookPage: '197-203', teacherBookPage: '197-203', status: 'PLANNED' },
-  { curriculumId: 'CUR-29', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'សីហា', weekNumber: 29, chapterNumber: 16, chapterTitle: 'បន្ទាត់ និងអង្កត់ពិសេសក្នុងត្រីកោណ', lessonTitle: 'មេរៀនទី១៦៖ បន្ទាត់ និងអង្កត់ពិសេស', topicTitle: '១. មេដ្យាន មេដ្យាទ័រ កម្ពស់ និងកន្លះបន្ទាត់ពុះមុំ', lessonOrder: 29, requiredPeriods: 2, learningObjectives: 'ស្គាល់ទីប្រជុំទម្ងន់ អរតូសង់ និងផ្ចិតរង្វង់ចារឹកក្នុង/ក្រៅត្រីកោណ', studentBookPage: '205-212', teacherBookPage: '205-212', status: 'PLANNED' },
-  { curriculumId: 'CUR-30', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'សីហា', weekNumber: 30, chapterNumber: 17, chapterTitle: 'រូបធរណីមាត្រដែលមានវិមាត្របី', lessonTitle: 'មេរៀនទី១៧៖ រូបធរណីមាត្រវិមាត្របី និង មាត្រដ្ឋាន', topicTitle: '១. ផ្ទៃក្រឡា និងមាឌព្រីស ពីរ៉ាមីត កោន និងមាត្រដ្ឋានផែនទី', lessonOrder: 30, requiredPeriods: 2, learningObjectives: 'គណនាផ្ទៃខាង ផ្ទៃសរុប និងមាឌនៃរូបធរណីមាត្រវិមាត្របី និងមាត្រដ្ឋាន', studentBookPage: '215-235', teacherBookPage: '215-235', status: 'PLANNED' }
+
+  { curriculumId: 'CUR-19', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មីនា', weekNumber: 19, chapterNumber: 6, chapterTitle: 'ផលធៀបត្រីកោណមាត្រ', lessonTitle: 'មេរៀនទី៦៖ ផលធៀបត្រីកោណមាត្រ', topicTitle: '១. សញ្ញាណស៊ីនុស កូស៊ីនុស តង់សង់ ក្នុងត្រីកោណកែង', lessonOrder: 19, requiredPeriods: 2, learningObjectives: 'កំណត់ sin, cos, tan ក្នុងត្រីកោណកែង និងដោះស្រាយលំហាត់', studentBookPage: '75-86', teacherBookPage: '75-86', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-20', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មីនា', weekNumber: 20, chapterNumber: 7, chapterTitle: 'សមីការដឺក្រេទី១ មានមួយអញាត', lessonTitle: 'មេរៀនទី៧៖ សមីការដឺក្រេទី១', topicTitle: '១. សញ្ញាណសមីការ និងការដោះស្រាយសមីការ ax+b=0', lessonOrder: 20, requiredPeriods: 2, learningObjectives: 'ដោះស្រាយសមីការដឺក្រេទី១មានមួយអញ្ញាតតាមវិធានផ្លាស់ប្តូរអងគ', studentBookPage: '89-94', teacherBookPage: '89-94', status: 'PLANNED' },
+  { curriculumId: 'CUR-21', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មីនា', weekNumber: 21, chapterNumber: 7, chapterTitle: 'សមីការដឺក្រេទី១ មានមួយអញាត', lessonTitle: 'មេរៀនទី៧៖ សមីការដឺក្រេទី១ (បញ្ចប់)', topicTitle: '២. ចំណោទសមីការដឺក្រេទី១ មានមួយអញ្ញាត', lessonOrder: 21, requiredPeriods: 2, learningObjectives: 'អនុវត្តជំហានទាំង៤ក្នុងការដោះស្រាយចំណោទគណិតវិទ្យា', studentBookPage: '97-100', teacherBookPage: '97-100', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-22', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មេសា', weekNumber: 22, chapterNumber: 8, chapterTitle: 'វិសមីការដឺក្រេទី១ មានមួយអញាត', lessonTitle: 'មេរៀនទី៨៖ វិសមីការដឺក្រេទី១', topicTitle: '១. សញ្ញាណវិសមីការ និងដំណោះស្រាយលើអ័ក្សចំនួន', lessonOrder: 22, requiredPeriods: 2, learningObjectives: 'ដោះស្រាយវិសមីការ និងតាងសំនុំចម្លើយលើបន្ទាត់ចំនួន', studentBookPage: '103-112', teacherBookPage: '103-112', status: 'PLANNED' },
+  { curriculumId: 'CUR-23', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មេសា', weekNumber: 23, chapterNumber: 9, chapterTitle: 'ប្លង់កូអរដោណេ និងក្រាប', lessonTitle: 'មេរៀនទី៩៖ ប្លង់កូអរដោណេ និងក្រាប', topicTitle: "១. សញ្ញាណប្លង់កូអរដោណេ (x'x, y'y) និងការសង់ក្រាប y=ax+b", lessonOrder: 23, requiredPeriods: 2, learningObjectives: 'ចេះកំណត់ចំណុចក្នុងប្លង់កូអរដោណេ និងសង់ក្រាបបន្ទាត់', studentBookPage: '115-121', teacherBookPage: '115-121', status: 'PLANNED' },
+
+  // Semester 2: Chapters 10 to 18
+  { curriculumId: 'CUR-24', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'ឧសភា', weekNumber: 24, chapterNumber: 10, chapterTitle: 'ស្ថិតិ', lessonTitle: 'មេរៀនទី១០៖ ស្ថិតិ', topicTitle: '១. តារាងបែងចែកប្រេកង់ និងដ្យាក្រាម', lessonOrder: 24, requiredPeriods: 2, learningObjectives: 'សង់តារាងប្រេកង់ និងគូរដ្យាក្រាមសសរ ឬដ្យាក្រាមរង្វង់', studentBookPage: '123-129', teacherBookPage: '123-129', status: 'PLANNED' },
+  { curriculumId: 'CUR-25', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'ឧសភា', weekNumber: 25, chapterNumber: 10, chapterTitle: 'ស្ថិតិ', lessonTitle: 'មេរៀនទី១០៖ ស្ថិតិ (បញ្ចប់)', topicTitle: '២. ការគណនាមធ្យមនព្វន្ធ មេដ្យាន និង ម៉ូត', lessonOrder: 25, requiredPeriods: 2, learningObjectives: 'គណនាមធ្យម មេដ្យាន និងម៉ូតនៃទិន្នន័យស្ថិតិបានត្រឹមត្រូវ', studentBookPage: '130-136', teacherBookPage: '130-136', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-26', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'ឧសភា', weekNumber: 26, chapterNumber: 11, chapterTitle: 'ប្រូបាប', lessonTitle: 'មេរៀនទី១១៖ ប្រូបាប', topicTitle: '១. សញ្ញាណប្រូបាប ព្រឹត្តិការណ៍ និងរូបមន្ត P(A) = ករណីស្រប/ករណីអាច', lessonOrder: 26, requiredPeriods: 2, learningObjectives: 'គណនាប្រូបាបនៃព្រឹត្តិការណ៍ក្នុងការបោះកាក់ និងគ្រាប់ឡុកឡាក់', studentBookPage: '141-145', teacherBookPage: '141-145', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-27', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មិថុនា', weekNumber: 27, chapterNumber: 12, chapterTitle: 'ការប្រៀបធៀបត្រីកោណ', lessonTitle: 'មេរៀនទី១២៖ ការប្រៀបធៀបត្រីកោណ', topicTitle: '១. លក្ខខណ្ឌត្រីកោណប៉ុនគ្នា (ម.ជ.ម និង ជ.ម.ជ)', lessonOrder: 27, requiredPeriods: 2, learningObjectives: 'ស្រាយបំភ្លឺត្រីកោណពីរប៉ុនគ្នាតាមលក្ខខណ្ឌ ម.ជ.ម និង ជ.ម.ជ', studentBookPage: '147-150', teacherBookPage: '147-150', status: 'PLANNED' },
+  { curriculumId: 'CUR-28', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មិថុនា', weekNumber: 28, chapterNumber: 12, chapterTitle: 'ការប្រៀបធៀបត្រីកោណ', lessonTitle: 'មេរៀនទី១២៖ ការប្រៀបធៀបត្រីកោណ (បញ្ចប់)', topicTitle: '២. លក្ខខណ្ឌ ជ.ជ.ជ និង ត្រីកោណកែងប៉ុនគ្នា', lessonOrder: 28, requiredPeriods: 2, learningObjectives: 'ស្រាយបញ្ជាក់ត្រីកោណប៉ុនគ្នាតាម ជ.ជ.ជ និងករណីត្រីកោណកែង', studentBookPage: '151-156', teacherBookPage: '151-156', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-29', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'មិថុនា', weekNumber: 29, chapterNumber: 13, chapterTitle: 'ចតុកោណ', lessonTitle: 'មេរៀនទី១៣៖ ចតុកោណ', topicTitle: '១. លក្ខណៈប្រលេឡូក្រាម និង ចតុកោណកែង', lessonOrder: 29, requiredPeriods: 2, learningObjectives: 'ស្គាល់លក្ខណៈសម្គាល់ និងស្រាយបញ្ជាក់ប្រលេឡូក្រាម និងចតុកោណកែង', studentBookPage: '169-176', teacherBookPage: '169-176', status: 'PLANNED' },
+  { curriculumId: 'CUR-30', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កក្កដា', weekNumber: 30, chapterNumber: 13, chapterTitle: 'ចតុកោណ', lessonTitle: 'មេរៀនទី១៣៖ ចតុកោណ (បញ្ចប់)', topicTitle: '២. ចតុកោណស្មើ និង ចតុកោណព្នាយ', lessonOrder: 30, requiredPeriods: 2, learningObjectives: 'ស្រាយបញ្ជាក់លក្ខណៈចតុកោណស្មើ និងចតុកោណព្នាយសមបាត', studentBookPage: '177-184', teacherBookPage: '177-184', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-31', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កក្កដា', weekNumber: 31, chapterNumber: 14, chapterTitle: 'ផ្ទៃក្រឡាពហុកោណ', lessonTitle: 'មេរៀនទី១៤៖ ផ្ទៃក្រឡាពហុកោណ', topicTitle: '១. ផ្ទៃក្រឡាប្រលេឡូក្រាម ចតុកោណស្មើ និងចតុកោណព្នាយ', lessonOrder: 31, requiredPeriods: 2, learningObjectives: "គណនាផ្ទៃក្រឡាពហុកោណតាមរូបមន្ត S=bh, S=1/2(d1*d2), S=1/2(b+b')h", studentBookPage: '187-193', teacherBookPage: '187-193', status: 'PLANNED' },
+  { curriculumId: 'CUR-32', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កក្កដា', weekNumber: 32, chapterNumber: 14, chapterTitle: 'ផ្ទៃក្រឡាពហុកោណ', lessonTitle: 'មេរៀនទី១៤៖ ផ្ទៃក្រឡាពហុកោណ (បញ្ចប់)', topicTitle: '២. ផ្ទៃក្រឡាពហុកោណស្មើ និងចំណោទជាក់ស្តែង', lessonOrder: 32, requiredPeriods: 2, learningObjectives: 'ដោះស្រាយចំណោទគណនាផ្ទៃក្រឡាដី និងសំណង់ជាក់ស្តែង', studentBookPage: '193-195', teacherBookPage: '193-195', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-33', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'កក្កដា', weekNumber: 33, chapterNumber: 15, chapterTitle: 'រង្វង់', lessonTitle: 'មេរៀនទី១៥៖ រង្វង់', topicTitle: '១. និយមន័យ មុំផ្ចិត ធ្នូ អង្កត់ធ្នូ និងលក្ខណៈឆ្លុះ', lessonOrder: 33, requiredPeriods: 2, learningObjectives: 'គណនាប្រវែងធ្នូ បរិមាត្ររង្វង់ C = 2*pi*r និងទំនាក់ទំនងមុំផ្ចិត', studentBookPage: '197-201', teacherBookPage: '197-201', status: 'PLANNED' },
+  { curriculumId: 'CUR-34', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'សីហា', weekNumber: 34, chapterNumber: 15, chapterTitle: 'រង្វង់', lessonTitle: 'មេរៀនទី១៥៖ រង្វង់ (បញ្ចប់)', topicTitle: '២. បន្ទាត់ប៉ះរង្វង់ និងអង្កត់ធ្នូកែងនឹងអង្កត់ផ្ចិត', lessonOrder: 34, requiredPeriods: 2, learningObjectives: 'ស្គាល់លក្ខណៈបន្ទាត់ប៉ះកែងនឹងកាំ និងទ្រឹស្តីបទអង្កត់ធ្នូ', studentBookPage: '202-204', teacherBookPage: '202-204', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-35', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'សីហា', weekNumber: 35, chapterNumber: 16, chapterTitle: 'បន្ទាត់ និងអង្កត់ពិសេសក្នុងត្រីកោណ', lessonTitle: 'មេរៀនទី១៦៖ បន្ទាត់ និងអង្កត់ពិសេស', topicTitle: '១. មេដ្យាន មេដ្យាទ័រ កម្ពស់ និងកន្លះបន្ទាត់ពុះមុំ', lessonOrder: 35, requiredPeriods: 2, learningObjectives: 'ស្គាល់ទីប្រជុំទម្ងន់ អរតូសង់ និងផ្ចិតរង្វង់ចារឹកក្នុង/ក្រៅត្រីកោណ', studentBookPage: '205-212', teacherBookPage: '205-212', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-36', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'សីហា', weekNumber: 36, chapterNumber: 17, chapterTitle: 'រូបធរណីមាត្រដែលមានវិមាត្របី', lessonTitle: 'មេរៀនទី១៧៖ រូបធរណីមាត្រវិមាត្របី', topicTitle: '១. ផ្ទៃក្រឡា និងមាឌព្រីស ពីរ៉ាមីត កោន ស៊ីឡាំង ស៊្វែ', lessonOrder: 36, requiredPeriods: 2, learningObjectives: 'គណនាផ្ទៃខាង ផ្ទៃសរុប និងមាឌនៃរូបធរណីមាត្រវិមាត្របី', studentBookPage: '215-226', teacherBookPage: '215-226', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-37', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'សីហា', weekNumber: 37, chapterNumber: 18, chapterTitle: 'មាត្រដ្ឋាន', lessonTitle: 'មេរៀនទី១៨៖ មាត្រដ្ឋាន', topicTitle: '១. មាត្រដ្ឋានផែនទី និងរូបភាពពង្រីក-បង្រួម', lessonOrder: 37, requiredPeriods: 2, learningObjectives: 'គណនាចម្ងាយពិតប្រាកដលើដីធៀបនឹងចម្ងាយលើប្លង់ផែនទី', studentBookPage: '229-235', teacherBookPage: '229-235', status: 'PLANNED' },
+
+  { curriculumId: 'CUR-38', academicYearId: 'AY-2025-2026', grade: 8, subjectId: 'SUB-MATH-8', monthNameKm: 'សីហា', weekNumber: 38, chapterNumber: 18, chapterTitle: 'រំលឹក និងការប្រឡងឆមាសលើកទី ២', lessonTitle: 'រំលឹកមេរៀន និងប្រឡងឆមាសទី២', topicTitle: 'ការប្រឡងបញ្ចប់ឆ្នាំសិក្សា ២០២៥-២០២៦', lessonOrder: 38, requiredPeriods: 2, learningObjectives: 'វាស់ស្ទង់សមត្ថភាពសិស្សប្រចាំឆមាសទី២ និងពេញមួយឆ្នាំសិក្សា', studentBookPage: '1-235', teacherBookPage: '1-235', status: 'PLANNED' },
 ];
 
 export const sampleLessonPlanGrade8Math: LessonPlan = {
   lessonPlanId: 'LP-SAMPLE-001',
-  scheduledLessonId: 'SCH-SAMPLE-001',
+  scheduledLessonId: 'SCH-CLS-8A-2025-11-03-P1',
   academicYearId: 'AY-2025-2026',
   teacherId: 'T-001',
-  classId: 'CLS-8D',
+  classId: 'CLS-8A',
   subjectId: 'SUB-MATH-8',
   date: '2025-11-03',
   periodNumber: 1,

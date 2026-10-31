@@ -228,6 +228,100 @@ export const LessonPlansPage: React.FC = () => {
   const getSubjectName = (sid: string) => subjects.find(s => s.subjectId === sid)?.subjectName || sid;
   const getTeacherName = (tid: string) => teachers.find(t => t.teacherId === tid)?.fullName || tid;
 
+  const handleGenerateFromCurriculum = async () => {
+    const currs = await storageService.getCurriculum();
+    if (currs.length === 0) {
+      addToast('error', 'មិនទាន់មានទិន្នន័យកម្មវិធីសិក្សាដើម្បីទាញយកទេ!');
+      return;
+    }
+
+    const newPlans: LessonPlan[] = [];
+    const targetClasses = classes.length > 0 ? classes : [{ classId: 'CLS-8A', className: '៨ក (8A)' }];
+
+    for (const c of currs) {
+      for (const cls of targetClasses) {
+        const planId = `LP-${cls.classId}-${c.curriculumId}`;
+        const plan: LessonPlan = {
+          lessonPlanId: planId,
+          scheduledLessonId: `SCH-${cls.classId}-${c.curriculumId}`,
+          academicYearId: c.academicYearId || 'AY-2025-2026',
+          teacherId: 'T-001',
+          classId: cls.classId,
+          subjectId: 'SUB-MATH-8',
+          date: new Date().toISOString().split('T')[0],
+          periodNumber: 1,
+          chapterTitle: c.chapterTitle,
+          lessonTitle: c.lessonTitle,
+          topic: c.topicTitle,
+          durationMinutes: 50,
+          learningObjectivesKnowledge: c.learningObjectives || 'កំណត់និយមន័យ និងទ្រឹស្តីបទសំខាន់ៗបានត្រឹមត្រូវ។',
+          learningObjectivesSkills: 'ចេះអនុវត្តប្រមាណវិធី និងដោះស្រាយលំហាត់គណិតវិទ្យាបានរហ័សនិងច្បាស់លាស់។',
+          learningObjectivesAttitude: 'មានស្មារតីប្រុងប្រយ័ត្ន ចូលចិត្តការគិតលេខ និងមានវិន័យក្នុងការសិក្សា។',
+          teachingMaterials: `សៀវភៅសិក្សាគោលគណិតវិទ្យាថ្នាក់ទី ៨ ទំព័រ ${c.studentBookPage || '១-១០'}, បន្ទាត់, ដែកឈាន, ក្តារខៀន, ម៉ាស៊ីនគិតលេខ`,
+          teachingMethods: 'វិធីសាស្ត្រសិស្សមជ្ឈមណ្ឌល (ការពិភាក្សាជាដៃគូ ការដោះស្រាយបញ្ហា និងការលើកឧទាហរណ៍ជាក់ស្តែង)',
+          steps: [
+            {
+              stepNumber: 1,
+              stepNameKm: 'ជំហានទី ១',
+              stepSubNameKm: 'រដ្ឋបាលថ្នាក់ (Class Administration)',
+              teacherActivities: 'ពិនិត្យអវត្តមាន អនាម័យ សណ្តាប់ធ្នាប់ ឯកសណ្ឋាន និងរៀបចំឥរិយាបថសិស្សមុនចូលរៀន។',
+              studentActivities: 'ប្រធានថ្នាក់ក្រោកឈររាយការណ៍អំពីវត្តមាន និងអវត្តមានសិស្ស។',
+              content: 'ពិនិត្យវត្តមាន និងវិន័យទូទៅក្នុងថ្នាក់',
+              durationMinutes: 3
+            },
+            {
+              stepNumber: 2,
+              stepNameKm: 'ជំហានទី ២',
+              stepSubNameKm: 'រំលឹកមេរៀនចាស់ (Review Previous Lesson)',
+              teacherActivities: 'សួរសំណួររំលឹកទ្រឹស្តី ឬរូបមន្តគណិតវិទ្យាពីម៉ោងមុន និងត្រួតពិនិត្យកិច្ចការផ្ទះ។',
+              studentActivities: 'សិស្សឆ្លើយសំណួរគ្រូ និងលើកសៀវភៅកិច្ចការផ្ទះបង្ហាញ។',
+              content: 'រំលឹកចំណេះដឹងមូលដ្ឋានពីម៉ោងមុន',
+              durationMinutes: 5
+            },
+            {
+              stepNumber: 3,
+              stepNameKm: 'ជំហានទី ៣',
+              stepSubNameKm: 'មេរៀនថ្មី (New Lesson Content)',
+              teacherActivities: `ពន្យល់ខ្លឹមសារ៖ ${c.topicTitle} តាមសៀវភៅពុម្ពទំព័រ ${c.studentBookPage} និងលើកឧទាហរណ៍គំរូលើក្តារខៀន។`,
+              studentActivities: 'សិស្សយកចិត្តទុកដាក់ស្តាប់ ចូលរួមឆ្លើយសំណួរ កត់ត្រាឧទាហរណ៍ និងរូបមន្តចូលក្នុងសៀវភៅ។',
+              content: `${c.chapterTitle} - ${c.topicTitle}: ${c.learningObjectives}`,
+              durationMinutes: 25
+            },
+            {
+              stepNumber: 4,
+              stepNameKm: 'ជំហានទី ៤',
+              stepSubNameKm: 'ពង្រឹងពុទ្ធិ (Reinforcement & Practice)',
+              teacherActivities: 'ដាក់លំហាត់អនុវត្តន៍លើក្តារខៀន ណែនាំសិស្សពិភាក្សាជាដៃគូ និងហៅសិស្សឡើងដោះស្រាយ។',
+              studentActivities: 'សិស្សពិភាក្សា ដោះស្រាយលំហាត់ និងកែតម្រូវចម្លើយលើក្តារខៀនជាមួយគ្រូ។',
+              content: 'លំហាត់អនុវត្តន៍ និងការពង្រឹងសមត្ថភាពដោះស្រាយ',
+              durationMinutes: 12
+            },
+            {
+              stepNumber: 5,
+              stepNameKm: 'ជំហានទី ៥',
+              stepSubNameKm: 'បណ្តាំផ្ញើ និងកិច្ចការផ្ទះ (Homework & Closing)',
+              teacherActivities: 'ដាក់កិច្ចការផ្ទះលំហាត់ក្នុងសៀវភៅពុម្ព និងផ្តាំផ្ញើសិស្សឱ្យមើលមេរៀនបន្តបន្ទាប់។',
+              studentActivities: 'សិស្សកត់ត្រាកិច្ចការផ្ទះចូលក្នុងសៀវភៅ និងសម្អាតតុមុនចេញពីថ្នាក់។',
+              content: `កិច្ចការផ្ទះលំហាត់សៀវភៅពុម្ពទំព័រ ${c.studentBookPage}`,
+              durationMinutes: 5
+            }
+          ],
+          assessmentHomework: `លំហាត់ក្នុងសៀវភៅពុម្ពគណិតវិទ្យាថ្នាក់ទី ៨ ទំព័រ ${c.studentBookPage}`,
+          notes: 'ដកស្រង់ចេញពីបំណែងចែកកម្មវិធីសិក្សាលម្អិតគណិតថ្នាក់ទី៨ វិទ្យាល័យហ៊ុនសែន បាត់ដឹង',
+          status: 'PREPARED',
+          updatedAt: new Date().toISOString()
+        };
+        newPlans.push(plan);
+      }
+    }
+
+    for (const plan of newPlans) {
+      await storageService.saveLessonPlan(plan);
+    }
+    await loadData();
+    addToast('success', `បានដកស្រង់ និងបង្កើតកិច្ចតែងការ ៥ ជំហានចំនួន ${newPlans.length} ដោយជោគជ័យ!`);
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -235,19 +329,28 @@ export const LessonPlansPage: React.FC = () => {
         <div>
           <h1 className="text-2xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
             <BookOpen className="w-7 h-7 text-indigo-600 dark:text-indigo-400" />
-            កិច្ចតែងការបង្រៀន (Lesson Plans)
+            កិច្ចតែងការបង្រៀន ៥ ជំហាន (Lesson Plans)
           </h1>
           <p className="text-sm text-gray-500 dark:text-slate-400 mt-1">
-            រៀបចំ និងគ្រប់គ្រងកិច្ចតែងការបង្រៀនតាមស្តង់ដា ៥ ជំហានរបស់ក្រសួងអប់រំ យុវជន និងកីឡា
+            ដកស្រង់ចេញពីកម្មវិធីសិក្សាលម្អិតគណិតវិទ្យាថ្នាក់ទី ៨ • លោកគ្រូ កែវ សំណាង
           </p>
         </div>
-        <button
-          onClick={handleCreateNew}
-          className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium flex items-center gap-2 shadow-sm transition-all"
-        >
-          <Plus className="w-4 h-4" />
-          តែងកិច្ចតែងការថ្មី
-        </button>
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={handleGenerateFromCurriculum}
+            className="px-3.5 py-2 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white rounded-lg text-sm font-medium flex items-center gap-2 shadow-sm transition-all"
+          >
+            <BookOpen className="w-4 h-4" />
+            ដកស្រង់កិច្ចតែងការពីកម្មវិធីសិក្សា
+          </button>
+          <button
+            onClick={handleCreateNew}
+            className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white rounded-lg text-sm font-medium flex items-center gap-2 shadow-sm transition-all"
+          >
+            <Plus className="w-4 h-4" />
+            តែងកិច្ចតែងការថ្មី
+          </button>
+        </div>
       </div>
 
       {/* Filter and Search Bar */}

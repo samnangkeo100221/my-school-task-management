@@ -16,7 +16,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Eye,
-  Sparkles
+  Sparkles,
+  RotateCcw
 } from 'lucide-react';
 import { useApp } from '../contexts/AppContext';
 import { storageService } from '../services/storageService';
@@ -48,14 +49,20 @@ export const ClassCurriculumPage: React.FC = () => {
   });
 
   // Filters
-  const [filterClass, setFilterClass] = useState<string>('CLS-8D'); // Default 8D
-  const [filterSubject, setFilterSubject] = useState<string>('SUB-MATH-8'); // Default Math
+  const [filterClass, setFilterClass] = useState<string>('CLS-8A'); // Default 8A
+  const [filterSubject, setFilterSubject] = useState<string>('SUB-MATH-8'); // Math
   const [filterTeacher, setFilterTeacher] = useState<string>('');
   const [filterStatus, setFilterStatus] = useState<string>('');
   const [search, setSearch] = useState<string>('');
 
   // Calendar View month pointer
   const [calendarMonth, setCalendarMonth] = useState<Date>(new Date(2025, 10, 1)); // Nov 2025 (School start)
+
+  // Reschedule Modal State
+  const [rescheduleModalOpen, setRescheduleModalOpen] = useState(false);
+  const [newOpeningDate, setNewOpeningDate] = useState<string>('2025-11-01');
+  const [rescheduleTargetClass, setRescheduleTargetClass] = useState<string>('');
+  const [forceResetAll, setForceResetAll] = useState<boolean>(true);
 
   // Modals & Panels
   const [selectedLesson, setSelectedLesson] = useState<ScheduledLesson | null>(null);
@@ -81,6 +88,9 @@ export const ClassCurriculumPage: React.FC = () => {
 
   useEffect(() => {
     loadData();
+    if (activeAcademicYear?.startDate) {
+      setNewOpeningDate(activeAcademicYear.startDate);
+    }
   }, [activeAcademicYear]);
 
   const switchViewMode = (mode: 'table' | 'calendar') => {
@@ -111,6 +121,42 @@ export const ClassCurriculumPage: React.FC = () => {
       );
     } catch (err: any) {
       addToast('error', 'បញ្ហាពេលបង្កើតកាលវិភាគ', err.message);
+    } finally {
+      setGenerating(false);
+    }
+  };
+
+  // Reschedule & Re-calculate based on new School Opening Date
+  const handleExecuteReschedule = async () => {
+    if (!activeAcademicYear) {
+      addToast('error', 'សូមជ្រើសរើសឆ្នាំសិក្សាជាមុនសិន!');
+      return;
+    }
+
+    if (!newOpeningDate) {
+      addToast('error', 'សូមជ្រើសរើសកាលបរិច្ឆេទបើកបវេសនកាល!');
+      return;
+    }
+
+    setGenerating(true);
+    try {
+      const result = await schedulerEngine.generateAnnualSchedule(
+        activeAcademicYear.academicYearId,
+        rescheduleTargetClass || undefined,
+        'SUB-MATH-8',
+        newOpeningDate,
+        forceResetAll
+      );
+      setGenSummary(result);
+      setRescheduleModalOpen(false);
+      await loadData();
+      addToast(
+        'success',
+        'បានរៀបចំកាលវិភាគបង្រៀនជាថ្មីជោគជ័យ!',
+        `បានបង្កើតឡើងវិញចំនួន ${result.totalGenerated} ម៉ោងបង្រៀន ចាប់ពីថ្ងៃបើកបវេសនកាល ${newOpeningDate}`
+      );
+    } catch (err: any) {
+      addToast('error', 'បញ្ហាពេលរៀបចំកាលវិភាគជាថ្មី', err.message);
     } finally {
       setGenerating(false);
     }
@@ -245,6 +291,15 @@ export const ClassCurriculumPage: React.FC = () => {
             Excel
           </button>
 
+          {/* Reschedule Button */}
+          <button
+            onClick={() => setRescheduleModalOpen(true)}
+            className="px-3.5 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-md shadow-emerald-500/20 transition-all flex items-center"
+          >
+            <RotateCcw className="w-4 h-4 mr-1.5" />
+            រៀបចំជាថ្មី (បើកបវេសនកាល)
+          </button>
+
           {/* Engine Generate Button */}
           <button
             onClick={handleGenerateSchedule}
@@ -252,7 +307,7 @@ export const ClassCurriculumPage: React.FC = () => {
             className="px-4 py-2 text-xs font-bold rounded-xl bg-gradient-to-r from-primary-600 to-indigo-600 hover:from-primary-700 hover:to-indigo-700 text-white shadow-md shadow-primary-500/20 transition-all flex items-center disabled:opacity-50"
           >
             <Sparkles className="w-4 h-4 mr-1.5" />
-            {generating ? 'កំពុងគណនា...' : 'បង្កើតកាលវិភាគស្វ័យប្រវត្តិ (Auto-Schedule)'}
+            {generating ? 'កំពុងគណនា...' : 'គណនាកាលវិភាគ'}
           </button>
         </div>
       </div>
@@ -283,17 +338,10 @@ export const ClassCurriculumPage: React.FC = () => {
             ))}
           </select>
 
-          {/* Subject Filter */}
-          <select
-            value={filterSubject}
-            onChange={(e) => setFilterSubject(e.target.value)}
-            className="text-xs py-2 px-3 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/60 text-slate-700 dark:text-slate-200 focus:outline-none font-semibold cursor-pointer"
-          >
-            <option value="">-- គ្រប់មុខវិជ្ជា --</option>
-            {subjects.map(s => (
-              <option key={s.subjectId} value={s.subjectId}>{s.subjectName}</option>
-            ))}
-          </select>
+          {/* Math Solo Indicator Badge */}
+          <div className="flex items-center px-3 py-2 rounded-xl bg-blue-50 dark:bg-blue-950/50 border border-blue-200 dark:border-blue-800 text-[11px] text-blue-700 dark:text-blue-300 font-bold">
+            គណិតវិទ្យា ថ្នាក់ទី៨ (កែវ សំណាង)
+          </div>
 
           {/* Status Filter */}
           <select
@@ -605,6 +653,98 @@ export const ClassCurriculumPage: React.FC = () => {
             </div>
           </div>
         )}
+      </Modal>
+
+      {/* Reschedule Modal */}
+      <Modal
+        isOpen={rescheduleModalOpen}
+        onClose={() => setRescheduleModalOpen(false)}
+        title="រៀបចំកាលវិភាគបង្រៀនជាថ្មី (កំណត់ថ្ងៃបើកបវេសនកាល)"
+        subtitle="ដកស្រង់ទិន្នន័យពីបំណែងចែកកម្មវិធីសិក្សាលម្អិតគណិតថ្នាក់ទី៨ ២០២៥-២០២៦ ទាំងស្រុង"
+        maxWidth="lg"
+      >
+        <div className="space-y-4 text-xs">
+          {/* Info Banner */}
+          <div className="p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-200 leading-relaxed">
+            <p className="font-bold flex items-center mb-1">
+              <RotateCcw className="w-4 h-4 mr-1.5" />
+              ប្រព័ន្ធរៀបចំកាលបរិច្ឆេទស្វ័យប្រវត្តិតាមការកែប្រែថ្ងៃបើកបវេសនកាល
+            </p>
+            <p className="text-[11px] opacity-90">
+              នៅពេលលោកគ្រូកែប្រែកាលបរិច្ឆេទបើកបវេសនកាល ប្រព័ន្ធនឹងដកស្រង់ទិន្នន័យពី <strong>បំណែងចែកកម្មវិធីសិក្សាលម្អិតគណិតថ្នាក់ទី៨ ២០២៥-២០២៦ ទាំងស្រុង</strong> (៣៨ សប្តាហ៍ / ១១០ ម៉ោងបង្រៀន / ១៨ ជំពូក) ហើយរៀបចំកាលបរិច្ឆេទបង្រៀនឡើងវិញជាស្វ័យប្រវត្តិតាមកាលវិភាគប្រចាំសប្តាហ៍ ដោយរំលងថ្ងៃឈប់សម្រាកបុណ្យជាតិ និងការប្រឡងឆមាស។
+            </p>
+          </div>
+
+          {/* New Academic Opening Date */}
+          <div>
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+              កាលបរិច្ឆេទបើកបវេសនកាលថ្មី (New Academic Opening Date) *
+            </label>
+            <input
+              type="date"
+              value={newOpeningDate}
+              onChange={(e) => setNewOpeningDate(e.target.value)}
+              className="w-full text-xs py-2.5 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+              required
+            />
+          </div>
+
+          {/* Target Class Selection */}
+          <div>
+            <label className="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1.5">
+              ថ្នាក់រៀនគោលដៅ (Target Classes)
+            </label>
+            <select
+              value={rescheduleTargetClass}
+              onChange={(e) => setRescheduleTargetClass(e.target.value)}
+              className="w-full text-xs py-2.5 px-3 rounded-xl border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-100 font-semibold focus:outline-none focus:ring-2 focus:ring-emerald-500"
+            >
+              <option value="">-- រៀបចំគ្រប់ថ្នាក់ទាំងអស់ (៨ក, ៨ខ, ៨គ, ៨ឃ) --</option>
+              {classes.map(c => (
+                <option key={c.classId} value={c.classId}>
+                  ថ្នាក់ {c.className}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {/* Full Reset Option */}
+          <div className="flex items-center space-x-2 rtl:space-x-reverse p-3 rounded-xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700">
+            <input
+              type="checkbox"
+              id="forceResetCheckbox"
+              checked={forceResetAll}
+              onChange={(e) => setForceResetAll(e.target.checked)}
+              className="w-4 h-4 text-emerald-600 rounded focus:ring-emerald-500 cursor-pointer"
+            />
+            <label htmlFor="forceResetCheckbox" className="text-xs text-slate-700 dark:text-slate-200 cursor-pointer select-none">
+              <span className="font-bold">រៀបចំឡើងវិញទាំងអស់ពីដើមឆ្នាំ (Full Reset & Reschedule)</span>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                ដកស្រង់ទិន្នន័យមេរៀនឡើងវិញទាំងស្រុង និងប្តូរកាលបរិច្ឆេទចាប់ពីថ្ងៃបើកបវេសនកាលថ្មី
+              </p>
+            </label>
+          </div>
+
+          {/* Action Buttons */}
+          <div className="flex items-center justify-end space-x-3 rtl:space-x-reverse pt-4 border-t border-slate-200 dark:border-slate-800">
+            <button
+              type="button"
+              onClick={() => setRescheduleModalOpen(false)}
+              className="px-4 py-2 text-xs font-semibold text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl"
+            >
+              បោះបង់
+            </button>
+            <button
+              type="button"
+              disabled={generating}
+              onClick={handleExecuteReschedule}
+              className="px-5 py-2.5 text-xs font-bold rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white shadow-md shadow-emerald-500/20 transition-all flex items-center disabled:opacity-50"
+            >
+              <RotateCcw className="w-4 h-4 mr-1.5" />
+              {generating ? 'កំពុងរៀបចំ...' : 'ចាប់ផ្តើមរៀបចំជាថ្មី (Regenerate Now)'}
+            </button>
+          </div>
+        </div>
       </Modal>
     </div>
   );
