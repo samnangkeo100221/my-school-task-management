@@ -1,3 +1,4 @@
+import { getChapterMaster } from '../data/lessonPlansMaster';
 import React, { useState, useEffect } from 'react';
 import { storageService } from '../services/storageService';
 import { useApp } from '../contexts/AppContext';
@@ -239,6 +240,7 @@ export const LessonPlansPage: React.FC = () => {
     const targetClasses = classes.length > 0 ? classes : [{ classId: 'CLS-8A', className: '៨ក (8A)' }];
 
     for (const c of currs) {
+      const master = getChapterMaster(c.chapterNumber);
       for (const cls of targetClasses) {
         const planId = `LP-${cls.classId}-${c.curriculumId}`;
         const plan: LessonPlan = {
@@ -254,60 +256,60 @@ export const LessonPlansPage: React.FC = () => {
           lessonTitle: c.lessonTitle,
           topic: c.topicTitle,
           durationMinutes: 50,
-          learningObjectivesKnowledge: c.learningObjectives || 'កំណត់និយមន័យ និងទ្រឹស្តីបទសំខាន់ៗបានត្រឹមត្រូវ។',
-          learningObjectivesSkills: 'ចេះអនុវត្តប្រមាណវិធី និងដោះស្រាយលំហាត់គណិតវិទ្យាបានរហ័សនិងច្បាស់លាស់។',
-          learningObjectivesAttitude: 'មានស្មារតីប្រុងប្រយ័ត្ន ចូលចិត្តការគិតលេខ និងមានវិន័យក្នុងការសិក្សា។',
-          teachingMaterials: `សៀវភៅសិក្សាគោលគណិតវិទ្យាថ្នាក់ទី ៨ ទំព័រ ${c.studentBookPage || '១-១០'}, បន្ទាត់, ដែកឈាន, ក្តារខៀន, ម៉ាស៊ីនគិតលេខ`,
-          teachingMethods: 'វិធីសាស្ត្រសិស្សមជ្ឈមណ្ឌល (ការពិភាក្សាជាដៃគូ ការដោះស្រាយបញ្ហា និងការលើកឧទាហរណ៍ជាក់ស្តែង)',
+          learningObjectivesKnowledge: master.objectivesKnowledge || c.learningObjectives || 'កំណត់និយមន័យ និងទ្រឹស្តីបទសំខាន់ៗបានត្រឹមត្រូវ។',
+          learningObjectivesSkills: master.objectivesSkill,
+          learningObjectivesAttitude: master.objectivesAttitude,
+          teachingMaterials: `${master.teachingMaterials.join(', ')} (សៀវភៅពុម្ពទំព័រ ${c.studentBookPage || ''})`,
+          teachingMethods: master.teachingMethod,
           steps: [
             {
               stepNumber: 1,
               stepNameKm: 'ជំហានទី ១',
-              stepSubNameKm: 'រដ្ឋបាលថ្នាក់ (Class Administration)',
-              teacherActivities: 'ពិនិត្យអវត្តមាន អនាម័យ សណ្តាប់ធ្នាប់ ឯកសណ្ឋាន និងរៀបចំឥរិយាបថសិស្សមុនចូលរៀន។',
-              studentActivities: 'ប្រធានថ្នាក់ក្រោកឈររាយការណ៍អំពីវត្តមាន និងអវត្តមានសិស្ស។',
-              content: 'ពិនិត្យវត្តមាន និងវិន័យទូទៅក្នុងថ្នាក់',
-              durationMinutes: 3
+              stepSubNameKm: master.defaultSteps.step1.title,
+              teacherActivities: master.defaultSteps.step1.teacherActivity,
+              studentActivities: master.defaultSteps.step1.studentActivity,
+              content: master.defaultSteps.step1.content,
+              durationMinutes: master.defaultSteps.step1.durationMin
             },
             {
               stepNumber: 2,
               stepNameKm: 'ជំហានទី ២',
-              stepSubNameKm: 'រំលឹកមេរៀនចាស់ (Review Previous Lesson)',
-              teacherActivities: 'សួរសំណួររំលឹកទ្រឹស្តី ឬរូបមន្តគណិតវិទ្យាពីម៉ោងមុន និងត្រួតពិនិត្យកិច្ចការផ្ទះ។',
-              studentActivities: 'សិស្សឆ្លើយសំណួរគ្រូ និងលើកសៀវភៅកិច្ចការផ្ទះបង្ហាញ។',
-              content: 'រំលឹកចំណេះដឹងមូលដ្ឋានពីម៉ោងមុន',
-              durationMinutes: 5
+              stepSubNameKm: master.defaultSteps.step2.title,
+              teacherActivities: master.defaultSteps.step2.teacherActivity,
+              studentActivities: master.defaultSteps.step2.studentActivity,
+              content: master.defaultSteps.step2.content,
+              durationMinutes: master.defaultSteps.step2.durationMin
             },
             {
               stepNumber: 3,
               stepNameKm: 'ជំហានទី ៣',
-              stepSubNameKm: 'មេរៀនថ្មី (New Lesson Content)',
-              teacherActivities: `ពន្យល់ខ្លឹមសារ៖ ${c.topicTitle} តាមសៀវភៅពុម្ពទំព័រ ${c.studentBookPage} និងលើកឧទាហរណ៍គំរូលើក្តារខៀន។`,
-              studentActivities: 'សិស្សយកចិត្តទុកដាក់ស្តាប់ ចូលរួមឆ្លើយសំណួរ កត់ត្រាឧទាហរណ៍ និងរូបមន្តចូលក្នុងសៀវភៅ។',
-              content: `${c.chapterTitle} - ${c.topicTitle}: ${c.learningObjectives}`,
-              durationMinutes: 25
+              stepSubNameKm: master.defaultSteps.step3.title,
+              teacherActivities: master.defaultSteps.step3.teacherActivity,
+              studentActivities: master.defaultSteps.step3.studentActivity,
+              content: `${c.lessonTitle} - ${c.topicTitle}: ${master.defaultSteps.step3.content}`,
+              durationMinutes: master.defaultSteps.step3.durationMin
             },
             {
               stepNumber: 4,
               stepNameKm: 'ជំហានទី ៤',
-              stepSubNameKm: 'ពង្រឹងពុទ្ធិ (Reinforcement & Practice)',
-              teacherActivities: 'ដាក់លំហាត់អនុវត្តន៍លើក្តារខៀន ណែនាំសិស្សពិភាក្សាជាដៃគូ និងហៅសិស្សឡើងដោះស្រាយ។',
-              studentActivities: 'សិស្សពិភាក្សា ដោះស្រាយលំហាត់ និងកែតម្រូវចម្លើយលើក្តារខៀនជាមួយគ្រូ។',
-              content: 'លំហាត់អនុវត្តន៍ និងការពង្រឹងសមត្ថភាពដោះស្រាយ',
-              durationMinutes: 12
+              stepSubNameKm: master.defaultSteps.step4.title,
+              teacherActivities: master.defaultSteps.step4.teacherActivity,
+              studentActivities: master.defaultSteps.step4.studentActivity,
+              content: master.defaultSteps.step4.content,
+              durationMinutes: master.defaultSteps.step4.durationMin
             },
             {
               stepNumber: 5,
               stepNameKm: 'ជំហានទី ៥',
-              stepSubNameKm: 'បណ្តាំផ្ញើ និងកិច្ចការផ្ទះ (Homework & Closing)',
-              teacherActivities: 'ដាក់កិច្ចការផ្ទះលំហាត់ក្នុងសៀវភៅពុម្ព និងផ្តាំផ្ញើសិស្សឱ្យមើលមេរៀនបន្តបន្ទាប់។',
-              studentActivities: 'សិស្សកត់ត្រាកិច្ចការផ្ទះចូលក្នុងសៀវភៅ និងសម្អាតតុមុនចេញពីថ្នាក់។',
-              content: `កិច្ចការផ្ទះលំហាត់សៀវភៅពុម្ពទំព័រ ${c.studentBookPage}`,
-              durationMinutes: 5
+              stepSubNameKm: master.defaultSteps.step5.title,
+              teacherActivities: master.defaultSteps.step5.teacherActivity,
+              studentActivities: master.defaultSteps.step5.studentActivity,
+              content: master.defaultSteps.step5.content,
+              durationMinutes: master.defaultSteps.step5.durationMin
             }
           ],
-          assessmentHomework: `លំហាត់ក្នុងសៀវភៅពុម្ពគណិតវិទ្យាថ្នាក់ទី ៨ ទំព័រ ${c.studentBookPage}`,
-          notes: 'ដកស្រង់ចេញពីបំណែងចែកកម្មវិធីសិក្សាលម្អិតគណិតថ្នាក់ទី៨ វិទ្យាល័យហ៊ុនសែន បាត់ដឹង',
+          assessmentHomework: master.defaultSteps.step5.content || `លំហាត់ក្នុងសៀវភៅពុម្ពគណិតវិទ្យាថ្នាក់ទី ៨ ទំព័រ ${c.studentBookPage}`,
+          notes: 'ដកស្រង់ចេញពីកិច្ចតែងការបង្រៀនគណិតវិទ្យាថ្នាក់ទី៨ វិទ្យាស្ថានជាតិអប់រំ (NIE) ជំនាន់ទី១៧ និងបំណែងចែកកម្មវិធីសិក្សាលម្អិត ២០២៥-២០២៦',
           status: 'PREPARED',
           updatedAt: new Date().toISOString()
         };
@@ -315,9 +317,7 @@ export const LessonPlansPage: React.FC = () => {
       }
     }
 
-    for (const plan of newPlans) {
-      await storageService.saveLessonPlan(plan);
-    }
+    await storageService.saveLessonPlansBatch(newPlans);
     await loadData();
     addToast('success', `បានដកស្រង់ និងបង្កើតកិច្ចតែងការ ៥ ជំហានចំនួន ${newPlans.length} ដោយជោគជ័យ!`);
   };

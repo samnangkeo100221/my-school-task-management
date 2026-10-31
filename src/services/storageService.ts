@@ -75,7 +75,7 @@ class StorageService {
   }
 
   // Initial Seed
-  private static DATA_VERSION = 'v4_keo_samnang_solo_math_2025_2026';
+  private static DATA_VERSION = 'v5_exact_docs_verified_2025_2026';
 
   public initStorage(): void {
     const currentVer = localStorage.getItem('msts_data_version');
@@ -623,7 +623,20 @@ class StorageService {
     return this.getLocal<LessonPlan[]>(STORAGE_KEYS.LESSON_PLANS, [sampleLessonPlanGrade8Math]);
   }
 
-  public async saveLessonPlan(plan: LessonPlan): Promise<void> {
+  public async saveLessonPlansBatch(newPlans: LessonPlan[]): Promise<void> {
+    const list = this.getLocal<LessonPlan[]>(STORAGE_KEYS.LESSON_PLANS, [sampleLessonPlanGrade8Math]);
+    const planMap = new Map<string, LessonPlan>();
+    for (const p of list) {
+      planMap.set(p.lessonPlanId, p);
+    }
+    for (const p of newPlans) {
+      planMap.set(p.lessonPlanId, p);
+    }
+    const combined = Array.from(planMap.values());
+    this.setLocal(STORAGE_KEYS.LESSON_PLANS, combined);
+  }
+
+  async saveLessonPlan(plan: LessonPlan): Promise<void> {
     const list = this.getLocal<LessonPlan[]>(STORAGE_KEYS.LESSON_PLANS, [sampleLessonPlanGrade8Math]);
     const index = list.findIndex(p => p.lessonPlanId === plan.lessonPlanId);
     if (index >= 0) {
